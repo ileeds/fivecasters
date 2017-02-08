@@ -23,7 +23,8 @@ export default class Iphone extends Component {
 	// a call to fetch weather data via wunderground
 	fetchWeatherData = () => {
 		// API URL with a structure of : ttp://api.wunderground.com/api/key/feature/q/country-code/city.json
-		var url = "http://api.wunderground.com/api/c78f1a13d2ca6971/conditions/q/UK/London.json";
+		//added API key
+		var url = "http://api.wunderground.com/api/412f9d936527550b/conditions/q/UK/London.json";
 		$.ajax({
 			url: url,
 			dataType: "jsonp",
@@ -38,7 +39,7 @@ export default class Iphone extends Component {
 	render() {
 		// check if temperature data is fetched, if so add the sign styling to the page
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
-		
+
 		// display all weather data
 		return (
 			<div class={ style.container }>
@@ -48,7 +49,7 @@ export default class Iphone extends Component {
 					<span class={ tempStyles }>{ this.state.temp }</span>
 				</div>
 				<div class={ style.details }></div>
-				<div class= { style_iphone.container }> 
+				<div class= { style_iphone.container }>
 					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null }
 				</div>
 			</div>
@@ -65,6 +66,6 @@ export default class Iphone extends Component {
 			locate: location,
 			temp: temp_c,
 			cond : conditions
-		});      
+		});
 	}
 }
