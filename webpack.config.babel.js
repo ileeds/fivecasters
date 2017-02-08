@@ -12,6 +12,9 @@ const ENV = process.env.NODE_ENV || 'development';
 
 const CSS_MAPS = ENV!=='production';
 
+//for environmental variables
+const Dotenv = require('dotenv-webpack');
+
 module.exports = {
 	context: path.resolve(__dirname, "src"),
 	entry: './index.js',
@@ -91,6 +94,10 @@ module.exports = {
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
+		//environmental variables
+		new Dotenv({
+      path: './.env', // if not simply .env
+    }),
 		new ExtractTextPlugin('style.css', {
 			allChunks: true,
 			disable: ENV!=='production'
@@ -128,7 +135,7 @@ module.exports = {
 				negate_iife: false
 			}
 		}),
-		
+
 		// strip out babel-helper invariant checks
 		new ReplacePlugin([{
 			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
