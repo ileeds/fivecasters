@@ -52,7 +52,10 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
-				loader: 'babel'
+				loader: 'babel-loader',
+				query: {
+          presets: ["es2015", "stage-0"]
+        }
 			},
 			{
 				// Transform our own .(less|css) files with PostCSS and CSS-modules
@@ -169,7 +172,7 @@ module.exports = {
 		tls: 'empty'
 	},
 
-	devtool: ENV==='production' ? 'source-map' : 'cheap-module-eval-source-map',
+	devtool: ENV==='production' ? 'cheap-module-eval-source-map' : 'cheap-module-eval-source-map',
 
 	devServer: {
 		port: process.env.PORT || 8080,

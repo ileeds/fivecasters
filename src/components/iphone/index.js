@@ -74,14 +74,8 @@ export default class Iphone extends Component {
 				<div class= { style_iphone.container }>
 					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={ this.fetchWeatherData }/ > : null }
 				</div>
-				<div class={ style.header }>
-					<div class={ style.city }>{ this.state.locate }</div>
-					<div class={ style.conditions }>{ this.state.cond }</div>
-					<span class={ tempStyles }>{ this.state.temp }</span>
-				</div>
-				<div class={ style.details }></div>
 				<div class= { style_iphone_two.container }>
-					{ this.state.display ? <Suggest class={ style_iphone_two.button } clickFunction={ this.getLocation }/ > : null }
+					<Suggest class={ style_iphone_two.button } clickFunction={ this.getLocation }/ > }
 				</div>
 			</div>
 		);
