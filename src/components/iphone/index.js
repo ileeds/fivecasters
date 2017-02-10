@@ -49,7 +49,7 @@ export default class Iphone extends Component {
 			foursquare.exploreVenues(params, function(error, venues) {
 					if (!error) {
 						console.log(venues);
-						// set states for fields so they could be rendered later on
+						//writes first restaurant into button
 						var elem = document.getElementById('results');
 						elem.innerHTML = venues.response.groups[0].items[0].venue.name;
 					}
