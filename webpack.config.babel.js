@@ -157,11 +157,16 @@ module.exports = {
 
 	node: {
 		global: true,
-		process: false,
-		Buffer: false,
+		//for foursquare api
+		process: true,
+		Buffer: true,
 		__filename: false,
 		__dirname: false,
-		setImmediate: false
+		setImmediate: false,
+		//for foursquare api
+		fs: 'empty',
+		net: 'empty',
+		tls: 'empty'
 	},
 
 	devtool: ENV==='production' ? 'source-map' : 'cheap-module-eval-source-map',

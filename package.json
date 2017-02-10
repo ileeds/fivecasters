@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "Preact starter project for a weather app powered by webpack.",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server -d --inline --hot --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack -p --progress",
@@ -74,12 +74,15 @@
   },
   "dependencies": {
     "dotenv-webpack": "^1.4.0",
+    "node-yelp-fusion": "^1.0.4",
     "preact": "^6.0.0",
     "preact-compat": "^3.0.0",
     "preact-router": "^2.0.0",
     "promise-polyfill": "^6.0.2",
     "proptypes": "^0.14.3",
-    "serve": "^2.0.0"
+    "serve": "^2.0.0",
+    "yelp-fusion-v3": "0.0.8",
+    "yelpv3": "^1.2.1"
   },
   "main": "webpack.config.babel.js",
   "directories": {

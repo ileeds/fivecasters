@@ -1,7 +1,7 @@
 // import preact
 import { h, render, Component } from 'preact';
 
-export default class Button extends Component {
+export default class Suggest extends Component {
 
 	// rendering a function when the button is clicked
 	render({clickFunction}) {
@@ -12,8 +12,8 @@ export default class Button extends Component {
 		}
 		return (
 			<div>
-				<button onClick={clickFunction}>
-					Display Weather
+				<button id="results" onClick={clickFunction}>
+					Display Nearby Restaurants
 				</button>
 			</div>
 		);
