@@ -32,6 +32,7 @@ export default class Button extends Component {
 	render() {
     return (
 			<div>
+				<div id="this" class={ style.image } />
 				<div id='now' class={ style.container }>
 					Loading, please wait...
 				</div>
