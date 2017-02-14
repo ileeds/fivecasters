@@ -74,6 +74,7 @@
   },
   "dependencies": {
     "dotenv-webpack": "^1.4.0",
+    "node-weatherunderground": "^1.2.0",
     "node-yelp-fusion": "^1.0.4",
     "preact": "^6.0.0",
     "preact-compat": "^3.0.0",
@@ -81,6 +82,8 @@
     "promise-polyfill": "^6.0.2",
     "proptypes": "^0.14.3",
     "serve": "^2.0.0",
+    "wunderground-api": "^1.1.4",
+    "wunderground-node": "^0.3.3",
     "yelp-fusion-v3": "0.0.8",
     "yelpv3": "^1.2.1"
   },
