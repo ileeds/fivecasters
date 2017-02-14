@@ -9,8 +9,6 @@ import Button from '../button';
 import Suggest from '../suggest';
 
 export default class Iphone extends Component {
-//var Iphone = React.createClass({
-
 	// the main render method for the iphone component
 	render() {
 		// display all weather data
@@ -20,7 +18,7 @@ export default class Iphone extends Component {
 					<Button class={ style_iphone.button } / >
 				</div>
 				<div class= { style_iphone_two.container }>
-					<Suggest class={ style_iphone_two.button } / >
+					<Suggest / >
 				</div>
 			</div>
 		);

@@ -34,6 +34,7 @@ export default class Suggest extends Component {
 						//fill div with results
 						venues.response.groups[0].items.forEach( function (place) {
 							var sug = document.createElement('div');
+							sug.className = style.each;
 							sug.innerHTML = place.venue.name;
 							sug.onclick = function() {
 								search(place.venue.name, location.coords.latitude, location.coords.longitude);
