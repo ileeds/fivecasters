@@ -57,7 +57,7 @@ export default class Button extends Component {
 					</div>
 				</div>
 				<div class= { style3.container }>
-					<Suggest rain = {this.state.rain}/>
+					<Suggest rain = {this.state.rain} loc = {this.state.loc}/>
 				</div>
 			</div>
 		);
@@ -83,20 +83,21 @@ export default class Button extends Component {
 					hourly(data, function(toReturn) {
 						hours = toReturn;
 					});
-					self.current(wunderground, query, now, self, hours);
+					self.current(wunderground, query, now, self, location, hours);
 				}
 			});
 		});
 	}
 
 	//retrieves current data
-	current(wunderground, query, now, self, hours) {
+	current(wunderground, query, now, self, location, hours) {
 		wunderground.conditions(query, function(err, data) {
 			if (err) {
 				throw err;
 			} else {
 				now = conditions(data);
 				self.setState({rain:now.prec});
+				self.setState({loc:location});
 				//render page after getting state
 				self.forceUpdate();
 				var nowDoc = document.getElementById('now');

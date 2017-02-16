@@ -26,29 +26,28 @@ export default class Suggest extends Component {
 		if (parseInt(this.props.rain)>0){
 			inOut = "indoor";
 		}
-		navigator.geolocation.getCurrentPosition((location) => {
-			var foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
-			//outdoor seating close to current location
-			var params = {
-				"ll": location.coords.latitude+","+location.coords.longitude,
-				"query": inOut+" seating"
-			};
-			foursquare.exploreVenues(params, function(error, venues) {
-					if (!error) {
-						var elem = document.getElementById('results');
-						elem.innerHTML = null;
-						//fill div with results
-						venues.response.groups[0].items.forEach( function (place) {
-							var sug = document.createElement('div');
-							sug.className = style.each;
-							sug.innerHTML = place.venue.name;
-							sug.onclick = function() {
-								search(place.venue.name, location.coords.latitude, location.coords.longitude);
-							}
-							elem.appendChild(sug);
-						});
-					}
-			});
+		var foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
+		//outdoor seating close to current location
+		var params = {
+			"ll": this.props.loc.coords.latitude+","+this.props.loc.coords.longitude,
+			"query": inOut+" seating"
+		};
+		foursquare.exploreVenues(params, function(error, venues) {
+				if (!error) {
+					var elem = document.getElementById('results');
+					elem.innerHTML = null;
+					//fill div with results
+					venues.response.groups[0].items.forEach( function (place) {
+						var sug = document.createElement('div');
+						sug.className = style.each;
+						sug.innerHTML = place.venue.name;
+						var self = this;
+						sug.onclick = function() {
+							search(place.venue.name, self.props.loc.coords.latitude, self.props.loc.coords.longitude);
+						}
+						elem.appendChild(sug);
+					});
+				}
 		});
   }
 }
