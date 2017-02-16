@@ -13,13 +13,8 @@ export default class Iphone extends Component {
 	render() {
 		// display all weather data
 		return (
-			<div class={ style.container }>
-				<div class= { style_iphone.container }>
-					<Button class={ style_iphone.button } / >
-				</div>
-				<div class= { style_iphone_two.container }>
-					<Suggest / >
-				</div>
+			<div class= { style_iphone.container }>
+				<Button class={ style_iphone.button } / >
 			</div>
 		);
 	}

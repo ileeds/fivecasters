@@ -1,6 +1,7 @@
 // import preact
 import { h, render, Component } from 'preact';
 import style from './style_iphone';
+import Button from '../button/index.js'
 
 //google maps search by current location and selected place
 function search(name, x, y) {
@@ -20,12 +21,17 @@ export default class Suggest extends Component {
 
 	//gets current location, will lead to hitting foursquare api
 	componentDidMount() {
-		navigator.geolocation.getCurrentPosition(function(location) {
+		//indoor or outdoor seating depends on rain
+		var inOut = "outdoor";
+		if (parseInt(this.props.rain)>0){
+			inOut = "indoor";
+		}
+		navigator.geolocation.getCurrentPosition((location) => {
 			var foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
 			//outdoor seating close to current location
 			var params = {
 				"ll": location.coords.latitude+","+location.coords.longitude,
-				"query": "outdoor seating"
+				"query": inOut+" seating"
 			};
 			foursquare.exploreVenues(params, function(error, venues) {
 					if (!error) {
