@@ -83,26 +83,30 @@ export default class Button extends Component {
 					hourly(data, function(toReturn) {
 						hours = toReturn;
 					});
+					self.current(wunderground, query, now, self, hours);
 				}
 			});
-			//retrieves current data
-			wunderground.conditions(query, function(err, data) {
-				if (err) {
-					throw err;
-			  } else {
-					now = conditions(data);
-					self.setState({rain:now.prec});
-					//render page after getting state
-					self.forceUpdate();
-					var nowDoc = document.getElementById('now');
-					nowDoc.innerHTML = now.loc+"<br />"+now.temp+"\xB0C<br />"+now.con;
-					var hourDoc = document.getElementById('wun');
-					hourDoc.innerHTML = null;
-					for (var div in hours) {
-						hourDoc.appendChild(hours[div]);
-					}
+		});
+	}
+
+	//retrieves current data
+	current(wunderground, query, now, self, hours) {
+		wunderground.conditions(query, function(err, data) {
+			if (err) {
+				throw err;
+			} else {
+				now = conditions(data);
+				self.setState({rain:now.prec});
+				//render page after getting state
+				self.forceUpdate();
+				var nowDoc = document.getElementById('now');
+				nowDoc.innerHTML = now.loc+"<br />"+now.temp+"\xB0C<br />"+now.con;
+				var hourDoc = document.getElementById('wun');
+				hourDoc.innerHTML = null;
+				for (var div in hours) {
+					hourDoc.appendChild(hours[div]);
 				}
-			});
+			}
 		});
 	}
 
