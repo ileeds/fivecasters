@@ -45,13 +45,13 @@ export default class Suggest extends Component {
 				if (!error) {
 					//fill div with results
 					venues.response.groups[0].items.forEach( function (place) {
+						if (place.venue.hours == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined){
+							return;
+						}
 						var name = place.venue.name;
 						var photo = place.venue.photos.groups[0].items[0].prefix+place.venue.photos.groups[0].items[0].width+"x"+place.venue.photos.groups[0].items[0].height+place.venue.photos.groups[0].items[0].suffix;
 						var keyword = place.venue.categories[0].name;
 						var price = place.venue.price.message;
-						if (place.venue.hours == undefined){
-							return;
-						}
 						var hours = place.venue.hours.status;
 						var address = place.venue.location.address+", "+place.venue.location.city;
 						var phone = place.venue.contact.formattedPhone;
