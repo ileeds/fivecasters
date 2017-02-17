@@ -46,13 +46,16 @@ export default class Button extends Component {
 	render() {
 		//load until state retrieved
 		if (this.state.rain === undefined) return <div />;
+		var times = Array.from(new Array(24),(val,index)=>index+1);
+		var d = new Date();
+		var n = d.getHours();
 		var settings = {
-			dots: true,
-			infinite: true,
-			speed: 500,
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			focusOnSelect: 1
+			slidesToShow: 6,
+			focusOnSelect: true,
+			draggable: true,
+			swipeToSlide: true,
+			infinite: false,
+			initialSlide: n-1
 		};
     return (
 			<div class={style2.container}>
@@ -68,12 +71,9 @@ export default class Button extends Component {
 					</div>
 				</div>
 	      <Slider {...settings} class={style.slide}>
-	        <div><h3>1</h3></div>
-	        <div><h3>2</h3></div>
-	        <div><h3>3</h3></div>
-	        <div><h3>4</h3></div>
-	        <div><h3>5</h3></div>
-	        <div><h3>6</h3></div>
+					{times.map(function(i){
+						return <div><h3>{i}</h3></div>;
+					})}
 	      </Slider>
 				<div class= { style3.container }>
 					<Suggest rain = {this.state.rain} loc = {this.state.loc}/>
