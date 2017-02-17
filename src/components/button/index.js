@@ -6,6 +6,7 @@ import style from './style_iphone';
 import style2 from '../iphone/style';
 import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
+import Slider from 'react-slick';
 
 //daily data returned to component
 function conditions (parsed_json) {
@@ -45,9 +46,19 @@ export default class Button extends Component {
 	render() {
 		//load until state retrieved
 		if (this.state.rain === undefined) return <div />;
+		var settings = {
+			dots: true,
+			infinite: true,
+			speed: 500,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			focusOnSelect: 1
+		};
     return (
 			<div class={style2.container}>
 				<div>
+					<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+					<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
 					<div class={ style.image } />
 					<div id='now' class={ style.container }>
 						Loading, please wait...
@@ -56,6 +67,14 @@ export default class Button extends Component {
 						Loading, please wait...
 					</div>
 				</div>
+	      <Slider {...settings} class={style.slide}>
+	        <div><h3>1</h3></div>
+	        <div><h3>2</h3></div>
+	        <div><h3>3</h3></div>
+	        <div><h3>4</h3></div>
+	        <div><h3>5</h3></div>
+	        <div><h3>6</h3></div>
+	      </Slider>
 				<div class= { style3.container }>
 					<Suggest rain = {this.state.rain} loc = {this.state.loc}/>
 				</div>
