@@ -1,7 +1,7 @@
 // import preact
 import { h, render, Component } from 'preact';
 import style from './style_iphone';
-import Button from '../button/index.js'
+import Item from '../item/index.js'
 
 //google maps search by current location and selected place
 function search(name, x, y) {
@@ -12,9 +12,13 @@ function search(name, x, y) {
 export default class Suggest extends Component {
 
   render() {
+		//load until state retrieved
+		if (this.state.items === undefined) return <div />;
     return (
 			<div id='results' class={ style.scroll }>
-				Loading, please wait...
+			{this.state.items.map(function(item){
+				return <Item place={item} />;
+			})}
 			</div>
 		);
   }
@@ -30,23 +34,49 @@ export default class Suggest extends Component {
 		//outdoor seating close to current location
 		var params = {
 			"ll": this.props.loc.coords.latitude+","+this.props.loc.coords.longitude,
-			"query": inOut+" seating"
+			"query": inOut+" seating",
+			"openNow": 1,
+			"venuePhotos": 1,
+			"section": "food"
 		};
+		var items = [];
+		var self = this;
 		foursquare.exploreVenues(params, function(error, venues) {
 				if (!error) {
-					var elem = document.getElementById('results');
-					elem.innerHTML = null;
 					//fill div with results
 					venues.response.groups[0].items.forEach( function (place) {
-						var sug = document.createElement('div');
-						sug.className = style.each;
-						sug.innerHTML = place.venue.name;
-						var self = this;
-						sug.onclick = function() {
-							search(place.venue.name, self.props.loc.coords.latitude, self.props.loc.coords.longitude);
+						var name = place.venue.name;
+						var photo = place.venue.photos.groups[0].items[0].prefix+place.venue.photos.groups[0].items[0].width+"x"+place.venue.photos.groups[0].items[0].height+place.venue.photos.groups[0].items[0].suffix;
+						var keyword = place.venue.categories[0].name;
+						var price = place.venue.price.message;
+						if (place.venue.hours == undefined){
+							return;
 						}
-						elem.appendChild(sug);
+						var hours = place.venue.hours.status;
+						var address = place.venue.location.address+", "+place.venue.location.city;
+						var phone = place.venue.contact.formattedPhone;
+						var distance = place.venue.location.distance+" meters";
+						var rating = place.venue.rating;
+						var site = place.venue.url;
+						var toPush = {
+							name: name,
+							photo: photo,
+							keyword: keyword,
+							price: price,
+							hours: hours,
+							address: address,
+							phone: phone,
+							distance: distance,
+							rating: rating,
+							site: site
+						};
+						items.push(toPush);
+						//sug.onclick = function() {
+							//search(place.venue.name, self.props.loc.coords.latitude, self.props.loc.coords.longitude);
+						//}
 					});
+					self.setState({items:items});
+					self.forceUpdate();
 				}
 		});
   }
