@@ -47,10 +47,13 @@ export default class Button extends Component {
 		if (this.state.rain === undefined) return <div />;
     return (
 			<div class={style2.container}>
+
 				<div>
-					<div class={ style.image } />
-					<div id='now' class={ style.container }>
-						Loading, please wait...
+					<div className="mainWeatherContainer">
+						<div class={ style.image } />
+						<div id='now' class={ style.container }>
+							Loading, please wait...
+						</div>
 					</div>
 					<div id='wun' class={ style.scroll }>
 						Loading, please wait...
@@ -101,7 +104,7 @@ export default class Button extends Component {
 				//render page after getting state
 				self.forceUpdate();
 				var nowDoc = document.getElementById('now');
-				nowDoc.innerHTML = now.loc+"<br />"+now.temp+"\xB0C<br />"+now.con;
+				nowDoc.innerHTML = "<h1>"+now.loc+"</h1><br/><h2>"+now.temp+"\xB0C</h2><br/><h3>"+now.con+"</h3>";
 				var hourDoc = document.getElementById('wun');
 				hourDoc.innerHTML = null;
 				for (var div in hours) {

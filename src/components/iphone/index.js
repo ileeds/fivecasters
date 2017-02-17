@@ -14,7 +14,7 @@ export default class Iphone extends Component {
 		// display all weather data
 		return (
 			<div class= { style_iphone.container }>
-				<Button class={ style_iphone.button } / >
+				<Button class={ style_iphone.button } />
 			</div>
 		);
 	}
