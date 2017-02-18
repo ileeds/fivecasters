@@ -6,7 +6,28 @@ import style from './style_iphone';
 import style2 from '../iphone/style';
 import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
-import Slider from 'react-slick';
+
+function timeClick(clicked) {
+	var d = new Date();
+	var n = d.getHours();
+	var time = parseInt(clicked.currentTarget.innerHTML);
+	if (isNaN(time)){
+		time=n;
+	}
+	var focus = document.getElementsByClassName(style.hour);
+	for (var i=0; i<focus.length; i++) {
+		focus[i].style.textDecoration = "";
+	}
+	clicked.currentTarget.style.textDecoration = "underline";
+	var shift = document.getElementsByClassName(style.weather);
+	for (var i=0; i<shift.length; i++) {
+		var toShift = (time-n);
+		if (toShift<0){
+			toShift+=24;
+		}
+  	shift[i].style.right = toShift*200+"px";
+  }
+}
 
 //daily data returned to component
 function conditions (parsed_json) {
@@ -22,13 +43,12 @@ function conditions (parsed_json) {
 //hourly data passed to callback function
 function hourly (parsed_json, callback) {
 	var toReturn = {};
-	for (var i=0; i<24; i++){
-		var time = parsed_json['hourly_forecast'][i]['FCTTIME']['civil'];
+	for (var i=0; i<23; i++){
 		var temp_c = parsed_json['hourly_forecast'][i]['temp']['metric'];
 		var conditions = parsed_json['hourly_forecast'][i]['wx'];
 		var hour = document.createElement('div');
-		hour.className = style.hour;
-		hour.innerHTML = time+"<br />"+temp_c+"\xB0C<br />"+conditions;
+		hour.className = style.weather;
+		hour.innerHTML = "<h2>"+temp_c+"\xB0C</h2><br/><h3>"+conditions+"</h3>";
 		toReturn[i] = hour;
 	}
 	callback(toReturn);
@@ -46,38 +66,24 @@ export default class Button extends Component {
 	render() {
 		//load until state retrieved
 		if (this.state.rain === undefined) return <div />;
-		var times = Array.from(new Array(24),(val,index)=>index+1);
-		var d = new Date();
-		var n = d.getHours();
-		var settings = {
-			slidesToShow: 6,
-			focusOnSelect: true,
-			draggable: true,
-			swipeToSlide: true,
-			infinite: false,
-			initialSlide: n-1
-		};
     return (
 			<div class={style2.container}>
-
 				<div>
-
-					<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
-					<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" /><div className="mainWeatherContainer">
-					<div class={ style.image } />
-					<div id='now' class={ style.container }>
-						Loading, please wait...
+					<div id="main" class={style.mainWeatherContainer}>
+						<div class={ style.image } />
+						<div class={style.weatherContainer}>
+							<div id="wrap" style="overflow: hidden; height: 300px; width: 20000px;">
+								<div id='now' class={ style.weather }>
+									Loading, please wait...
+								</div>
+							</div>
+						</div>
 					</div>
-					</div>
-					<div id='wun' class={ style.scroll }>
-						Loading, please wait...
+					<div id="slideContainer">
+						<div id='start' class={style.now}> Now </div>
+						<div id='wun' class={ style.scroll } />
 					</div>
 				</div>
-	      <Slider {...settings} class={style.slide}>
-					{times.map(function(i){
-						return <div><h3>{i}</h3></div>;
-					})}
-	      </Slider>
 				<div class= { style3.container }>
 					<Suggest rain = {this.state.rain} loc = {this.state.loc}/>
 				</div>
@@ -124,10 +130,37 @@ export default class Button extends Component {
 				self.forceUpdate();
 				var nowDoc = document.getElementById('now');
 				nowDoc.innerHTML = "<h1>"+now.loc+"</h1><br/><h2>"+now.temp+"\xB0C</h2><br/><h3>"+now.con+"</h3>";
-				var hourDoc = document.getElementById('wun');
-				hourDoc.innerHTML = null;
+				var hourDoc = document.getElementById('wrap');
 				for (var div in hours) {
+					hours[div].innerHTML="<h1>"+now.loc+"</h1><br/>"+hours[div].innerHTML;
 					hourDoc.appendChild(hours[div]);
+				}
+				//form array of times from now through 24 hours
+				var d = new Date();
+				var n = d.getHours()+1;
+				var j = n+24;
+				var times = [];
+				for (var i=n; i<j; i++){
+					if (i>23){
+						i=0;
+						j=n-1;
+					}
+					times.push(i);
+				}
+				var slide = document.getElementById('wun');
+				document.getElementById('start').onclick = function(e) {
+					var d = new Date();
+					var n = d.getHours();
+					timeClick(e);
+				}
+				for (var hour in times) {
+					var single = document.createElement('div');
+					single.className = style.hour;
+					single.innerHTML = times[hour];
+					single.onclick = function(e) {
+						timeClick(e);
+					}
+					slide.appendChild(single);
 				}
 			}
 		});
