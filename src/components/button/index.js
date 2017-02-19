@@ -7,7 +7,7 @@ import style2 from '../iphone/style';
 import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
 
-function timeClick(clicked) {
+function timeClick(clicked, self) {
 	var d = new Date();
 	var n = d.getHours();
 	var time = parseInt(clicked.currentTarget.innerHTML);
@@ -27,6 +27,10 @@ function timeClick(clicked) {
 		}
   	shift[i].style.right = toShift*200+"px";
   }
+	self.setState({time:time});
+	var replace = render(<Suggest rain = {self.state.rain} loc = {self.state.loc} time = {self.state.time}/>);
+	var parent = document.getElementById("cont");
+	parent.replaceChild(replace, parent.childNodes[0]);
 }
 
 //daily data returned to component
@@ -58,7 +62,7 @@ export default class Button extends Component {
 
 	getInitialState() {
     return {
-      rain: "none"
+      rain: "none",
     };
   }
 
@@ -84,8 +88,8 @@ export default class Button extends Component {
 						<div id='wun' class={ style.scroll } />
 					</div>
 				</div>
-				<div class= { style3.container }>
-					<Suggest rain = {this.state.rain} loc = {this.state.loc}/>
+				<div id="cont" class= { style3.container }>
+					<Suggest rain = {this.state.rain} loc = {this.state.loc} time = {this.state.time}/>
 				</div>
 			</div>
 		);
@@ -117,6 +121,10 @@ export default class Button extends Component {
 		});
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
 	//retrieves current data
 	current(wunderground, query, now, self, location, hours) {
 		wunderground.conditions(query, function(err, data) {
@@ -124,8 +132,10 @@ export default class Button extends Component {
 				throw err;
 			} else {
 				now = conditions(data);
+				var d = new Date();
 				self.setState({rain:now.prec});
 				self.setState({loc:location});
+				self.setState({time:d.getHours()});
 				//render page after getting state
 				self.forceUpdate();
 				var nowDoc = document.getElementById('now');
@@ -136,7 +146,6 @@ export default class Button extends Component {
 					hourDoc.appendChild(hours[div]);
 				}
 				//form array of times from now through 24 hours
-				var d = new Date();
 				var n = d.getHours()+1;
 				var j = n+24;
 				var times = [];
@@ -151,14 +160,14 @@ export default class Button extends Component {
 				document.getElementById('start').onclick = function(e) {
 					var d = new Date();
 					var n = d.getHours();
-					timeClick(e);
+					timeClick(e, self);
 				}
 				for (var hour in times) {
 					var single = document.createElement('div');
 					single.className = style.hour;
 					single.innerHTML = times[hour];
 					single.onclick = function(e) {
-						timeClick(e);
+						timeClick(e, self);
 					}
 					slide.appendChild(single);
 				}

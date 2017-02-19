@@ -30,11 +30,25 @@ export default class Suggest extends Component {
 		if (parseInt(this.props.rain)>0){
 			inOut = "indoor";
 		}
+		var type = "";
+		if (4<this.props.time && this.props.time<12){
+			type += "breakfast ";
+		}
+		if (10<this.props.time && this.props.time<18) {
+			type += "lunch ";
+		}
+		if (16<this.props.time && this.props.time<24) {
+			type += "dinner ";
+		}
+		if (20<this.props.time && this.props.time<25 || -1<this.props.time && this.props.time<6) {
+			type += "late night ";
+		}
+		debugger;
 		var foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
 		//outdoor seating close to current location
 		var params = {
 			"ll": this.props.loc.coords.latitude+","+this.props.loc.coords.longitude,
-			"query": inOut+" seating",
+			"query": type+inOut+" seating",
 			"openNow": 1,
 			"venuePhotos": 1,
 			"section": "food"
