@@ -27,8 +27,8 @@ function timeClick(clicked, self) {
 		}
   	shift[i].style.right = toShift*200+"px";
   }
-	self.setState({time:time});
-	var replace = render(<Suggest rain = {self.state.rain} loc = {self.state.loc} time = {self.state.time}/>);
+	var forState = document.elementFromPoint(550, 257);
+	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} rain = {forState.value} loc = {self.state.loc} time = {time}/>);
 	var parent = document.getElementById("cont");
 	parent.replaceChild(replace, parent.childNodes[0]);
 }
@@ -51,6 +51,7 @@ function hourly (parsed_json, callback) {
 		var temp_c = parsed_json['hourly_forecast'][i]['temp']['metric'];
 		var conditions = parsed_json['hourly_forecast'][i]['wx'];
 		var hour = document.createElement('div');
+		hour.value = parsed_json['hourly_forecast'][i]['pop'];
 		hour.className = style.weather;
 		hour.innerHTML = "<h2>"+temp_c+"\xB0C</h2><br/><h3>"+conditions+"</h3>";
 		toReturn[i] = hour;
@@ -89,7 +90,7 @@ export default class Button extends Component {
 					</div>
 				</div>
 				<div id="cont" class= { style3.container }>
-					<Suggest rain = {this.state.rain} loc = {this.state.loc} time = {this.state.time}/>
+					<Suggest temp = {this.state.temp} rain = {this.state.rain} loc = {this.state.loc} time = {this.state.time}/>
 				</div>
 			</div>
 		);
@@ -121,10 +122,6 @@ export default class Button extends Component {
 		});
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-    return false;
-  }
-
 	//retrieves current data
 	current(wunderground, query, now, self, location, hours) {
 		wunderground.conditions(query, function(err, data) {
@@ -134,6 +131,7 @@ export default class Button extends Component {
 				now = conditions(data);
 				var d = new Date();
 				self.setState({rain:now.prec});
+				self.setState({temp:now.temp});
 				self.setState({loc:location});
 				self.setState({time:d.getHours()});
 				//render page after getting state

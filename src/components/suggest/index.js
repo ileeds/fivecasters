@@ -1,7 +1,7 @@
 // import preact
 import { h, render, Component } from 'preact';
 import style from './style_iphone';
-import Item from '../item/index.js'
+import Item from '../item/index.js';
 
 //google maps search by current location and selected place
 function search(name, x, y) {
@@ -25,9 +25,9 @@ export default class Suggest extends Component {
 
 	//gets current location, will lead to hitting foursquare api
 	componentDidMount() {
-		//indoor or outdoor seating depends on rain
+		//indoor or outdoor seating depends on rain and temp
 		var inOut = "outdoor";
-		if (parseInt(this.props.rain)>0){
+		if (parseInt(this.props.rain)>0 || parseInt(this.props.temp)<8){
 			inOut = "indoor";
 		}
 		var type = "";
@@ -43,7 +43,6 @@ export default class Suggest extends Component {
 		if (20<this.props.time && this.props.time<25 || -1<this.props.time && this.props.time<6) {
 			type += "late night ";
 		}
-		debugger;
 		var foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
 		//outdoor seating close to current location
 		var params = {
