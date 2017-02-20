@@ -169,6 +169,19 @@ export default class Button extends Component {
 					}
 					slide.appendChild(single);
 				}
+				self.alerts(wunderground, query);
+			}
+		});
+	}
+
+	alerts(wunderground, query) {
+		wunderground.alerts(query, function(err, data) {
+			if (err) {
+				throw err;
+			} else {
+				if (data['alerts'].length > 0) {
+					window.alert("WARNING!");
+				}
 			}
 		});
 	}
