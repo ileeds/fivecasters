@@ -180,7 +180,7 @@ export default class Button extends Component {
 				throw err;
 			} else {
 				if (data['alerts'].length > 0) {
-					window.alert("WARNING!");
+					window.alert(data['alerts'][0]['description']);
 				}
 			}
 		});
