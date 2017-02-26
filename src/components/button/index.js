@@ -16,9 +16,9 @@ function timeClick(clicked, self) {
 	}
 	var focus = document.getElementsByClassName(style.hour);
 	for (var i=0; i<focus.length; i++) {
-		focus[i].style.textDecoration = "";
+		focus[i].style.borderBottom = "";
 	}
-	clicked.currentTarget.style.textDecoration = "underline";
+	clicked.currentTarget.style.borderBottom = "2.5pt solid  #000000";
 	var shift = document.getElementsByClassName(style.weather);
 	for (var i=0; i<shift.length; i++) {
 		var toShift = (time-n);
@@ -84,7 +84,7 @@ export default class Button extends Component {
 							</div>
 						</div>
 					</div>
-					<div id="slideContainer">
+					<div id="slideContainer" class={style.slideContainer}>
 						<div id='start' class={style.now}> Now </div>
 						<div id='wun' class={ style.scroll } />
 					</div>
@@ -137,6 +137,7 @@ export default class Button extends Component {
 				//render page after getting state
 				self.forceUpdate();
 				var nowDoc = document.getElementById('now');
+				nowDoc.className += ' nowWeather';
 				nowDoc.innerHTML = "<h1>"+now.loc+"</h1><br/><h2>"+now.temp+"\xB0C</h2><br/><h3>"+now.con+"</h3>";
 				var hourDoc = document.getElementById('wrap');
 				for (var div in hours) {
