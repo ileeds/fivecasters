@@ -19,7 +19,11 @@ function timeClick(clicked, self, hours, now) {
 	for (var i=0; i<focus.length; i++) {
 		focus[i].style.borderBottom = "";
 	}
-	clicked.currentTarget.style.borderBottom = "2.5pt solid  #000000";
+
+	var unfocus = document.getElementById('start');
+	unfocus.style.borderBottom = "2.5pt solid  #000000";
+
+	clicked.currentTarget.style.borderBottom = "2.5pt solid  #FF0000";
 	var hourDoc = document.getElementById('wrap');
 	var diff = clicked.target.innerHTML-n-1;
 	if (diff<0) {
@@ -179,7 +183,7 @@ export default class Button extends Component {
 				for (var hour in times) {
 					var single = document.createElement('div');
 					single.className = style.hour;
-					single.innerHTML = times[hour];
+					single.innerHTML = times[hour]+":00";
 					single.onclick = function(e) {
 						timeClick(e, self, hours, nowDoc);
 					}

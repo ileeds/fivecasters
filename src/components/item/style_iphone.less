@@ -27,13 +27,14 @@
 
 .blueBox {
   background: #3399CC;
-  width: 253.5pt;
+  width: 147.5pt;
   margin-left: 14pt;
   height: 25pt;
   padding: 5pt;
   position: relative;
   bottom: 14pt;
   color: #FFFFFF;
+  text-transform: uppercase;
 
   ul {
 	list-style-type: none;
@@ -43,23 +44,75 @@
 
 	li {
 	  float: left;
-	  padding: 0pt 5pt;
+	  /*padding: 0pt 5pt;
 
 	  img {
 		height: 15pt;
 	  }
-
+	*/
 	  p {
 		margin: 0pt;
 	  }
-
+	  /*
 	  p::before {
 		content: '|';
 		padding: 0pt 10pt;
-	  }
+	  }*/
 	}
 
   }
+}
+
+.titleDiv {
+  text-align: left;
+  float: left;
+  padding-bottom: 5pt;
+  margin: 0pt 14pt;
+  position: relative;
+  bottom: 15pt;
+  border-bottom: 0.5pt solid #CACACA;
+
+  h1 {
+	font-size: 18pt;
+	line-height: 25pt;
+	margin: 0pt;
+	width: 270.9pt;
+  }
+
+  p {
+	color: #919191;
+	margin: 0pt;
+	width: 173pt;
+	float: left;
+	line-height: 15pt;
+  }
+
+  span {
+	color: #919191;
+	margin: 0pt;
+	width: 100pt;
+	text-align: right;
+  }
+}
+
+.address {
+  text-align: left;
+  margin: 0pt 14pt;
+  font-size: 12pt;
+  color: #424242;
+  position: relative;
+  bottom: 5pt;
+  line-height: 20pt;
+}
+
+.address:before {
+  content: "";
+  display: block;
+  background: url("../../assets/icons/place.png") no-repeat;
+  width: 20pt;
+  height: 20pt;
+  float: left;
+  margin: 0 6px 0 0;
 }
 
 
