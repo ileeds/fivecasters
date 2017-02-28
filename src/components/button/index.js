@@ -7,7 +7,7 @@ import style2 from '../iphone/style';
 import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
 
-function timeClick(clicked, self) {
+function timeClick(clicked, self, hours, now) {
 	var d = new Date();
 	var n = d.getHours();
 	var time = parseInt(clicked.currentTarget.innerHTML);
@@ -19,15 +19,19 @@ function timeClick(clicked, self) {
 		focus[i].style.borderBottom = "";
 	}
 	clicked.currentTarget.style.borderBottom = "2.5pt solid  #000000";
-	var shift = document.getElementsByClassName(style.weather);
-	for (var i=0; i<shift.length; i++) {
-		var toShift = (time-n);
-		if (toShift<0){
-			toShift+=24;
-		}
-  	shift[i].style.right = toShift*200+"px";
-  }
-	var forState = document.elementFromPoint(550, 257);
+	var hourDoc = document.getElementById('wrap');
+	var diff = clicked.target.innerHTML-n-1;
+	if (diff<0) {
+		diff+=24;
+	}
+	var forState;
+	if (isNaN(diff)){
+		hourDoc.replaceChild(now, hourDoc.childNodes[0]);
+		forState = now;
+	} else {
+		hourDoc.replaceChild(hours[diff], hourDoc.childNodes[0]);
+		forState = hours[diff];
+	}
 	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} rain = {forState.value} loc = {self.state.loc} time = {time}/>);
 	var parent = document.getElementById("cont");
 	parent.replaceChild(replace, parent.childNodes[0]);
@@ -139,11 +143,11 @@ export default class Button extends Component {
 				var nowDoc = document.getElementById('now');
 				nowDoc.className += ' nowWeather';
 				nowDoc.innerHTML = "<h1>"+now.loc+"</h1><br/><h2>"+now.temp+"\xB0C</h2><br/><h3>"+now.con+"</h3>";
-				var hourDoc = document.getElementById('wrap');
 				for (var div in hours) {
 					hours[div].innerHTML="<h1>"+now.loc+"</h1><br/>"+hours[div].innerHTML;
-					hourDoc.appendChild(hours[div]);
 				}
+				var hourDoc = document.getElementById('wrap');
+				hourDoc.appendChild(hours[0]);
 				//form array of times from now through 24 hours
 				var n = d.getHours()+1;
 				var j = n+24;
@@ -159,14 +163,14 @@ export default class Button extends Component {
 				document.getElementById('start').onclick = function(e) {
 					var d = new Date();
 					var n = d.getHours();
-					timeClick(e, self);
+					timeClick(e, self, hours, nowDoc);
 				}
 				for (var hour in times) {
 					var single = document.createElement('div');
 					single.className = style.hour;
 					single.innerHTML = times[hour];
 					single.onclick = function(e) {
-						timeClick(e, self);
+						timeClick(e, self, hours, nowDoc);
 					}
 					slide.appendChild(single);
 				}
@@ -181,7 +185,11 @@ export default class Button extends Component {
 				throw err;
 			} else {
 				if (data['alerts'].length > 0) {
-					window.alert(data['alerts'][0]['description']);
+					var d = new Date();
+					var dd = new Date(data['alerts'][0]['expires']);
+					if (dd>d){
+						window.alert(data['alerts'][0]['description']);
+					}
 				}
 			}
 		});
