@@ -73,6 +73,7 @@
     "webpack-dev-server": "^1.15.0"
   },
   "dependencies": {
+    "decko": "^1.2.0",
     "dotenv-webpack": "^1.4.0",
     "node-weatherunderground": "^1.2.0",
     "node-yelp-fusion": "^1.0.4",
