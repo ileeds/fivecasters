@@ -84,8 +84,8 @@ export default class Button extends Component {
 		if (this.state.rain === undefined) return <div />;
     return (
 			<div class={style2.container}>
-				<div style="position: absolute; right: 250px;">
-					<button id="settings" onclick={() => {this.settings(true)}} type="button">Settings</button>
+				<div>
+					<button id="settings" onclick={() => {this.settings(true)}} type="button" class={style.settings}></button>
 				</div>
 				<div>
 					<div id="main" class={style.mainWeatherContainer}>
