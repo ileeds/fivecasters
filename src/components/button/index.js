@@ -23,7 +23,7 @@ function timeClick(clicked, self, hours, now) {
 	var unfocus = document.getElementById('start');
 	unfocus.style.borderBottom = "2.5pt solid  #000000";
 
-	clicked.currentTarget.style.borderBottom = "2.5pt solid  #FF0000";
+	clicked.currentTarget.style.borderBottom = "2.5pt solid  #4A90E2";
 	var hourDoc = document.getElementById('wrap');
 	var diff = clicked.target.innerHTML-n-1;
 	if (diff<0) {

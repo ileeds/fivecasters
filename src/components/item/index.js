@@ -11,17 +11,13 @@ export default class Item extends Component {
 				<div class={style.imgContainer}>
 					<img src={this.props.place.photo} alt="some_text" ></img>
 				</div>
-				<div class={style.blueBox}>
-					<ul>
-						<li>
-							<p>{this.props.place.hours}</p>
-						</li>
-					</ul>
+				<div>
+					<span class={style.blueBox}>{this.props.place.hours}</span>
 				</div>
 				<div class={style.titleDiv}>
 					<h1>{this.props.place.name}</h1>
 					<p>{this.props.place.keyword}</p>
-					<span>Pricing: {this.props.place.price}</span>
+					<span><b>&pound;</b> {this.props.place.price}</span>
 				</div>
 				<p class={style.address}>{this.props.place.address}</p>
 
