@@ -39,6 +39,25 @@ function timeClick(clicked, self, hours, now) {
 	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} rain = {forState.value} loc = {self.state.loc} time = {time}/>);
 	var parent = document.getElementById("cont");
 	parent.replaceChild(replace, parent.childNodes[0]);
+	picReplace(hours[diff].querySelector("h3").innerHTML);
+}
+
+//updates weather picture when new time is selected
+function picReplace(con) {
+	var img = document.getElementById('weatherPic');
+	if (con.includes("Cloud")){
+		img.src = "../../assets/icons/cloudy-01.png";
+	} else if (con.includes("Fog")) {
+		img.src = "../../assets/icons/fog-01.png";
+	} else if (con.includes("Rain")) {
+		img.src = "../../assets/icons/rain-01.png";
+	} else if (con.includes("Sleet")) {
+		img.src = "../../assets/icons/sleet.png";
+	} else if (con.includes("Thunder")) {
+		img.src = "../../assets/icons/thunderstorm.png";
+	} else {
+		img.src = "../../assets/icons/sunny.png";
+	}
 }
 
 //daily data returned to component
@@ -86,7 +105,7 @@ export default class Button extends Component {
 				</div>
 				<div>
 					<div id="main" class={style.mainWeatherContainer}>
-						<div class={ style.image } />
+						<img id="weatherPic" class={ style.image } alt="No Image Available"/>
 						<div class={style.weatherContainer}>
 							<div id="wrap" style="overflow: hidden; height: 300px; width: 20000px;">
 								<div id='now' class={ style.weather }>
@@ -147,6 +166,22 @@ export default class Button extends Component {
 				self.setState({time:d.getHours()});
 				//render page after getting state
 				self.forceUpdate();
+				//conditionally render weather image based on conditions
+				var img = document.getElementById('weatherPic');
+				if (now.con.includes("Cloud")){
+					img.src = "../../assets/icons/cloudy-01.png";
+				} else if (now.con.includes("Fog")) {
+					img.src = "../../assets/icons/fog-01.png";
+				} else if (now.con.includes("Rain")) {
+					img.src = "../../assets/icons/rain-01.png";
+				} else if (now.con.includes("Sleet")) {
+					img.src = "../../assets/icons/sleet.png";
+				} else if (now.con.includes("Thunder")) {
+					img.src = "../../assets/icons/thunderstorm.png";
+				} else {
+					img.src = "../../assets/icons/sunny.png";
+				}
+
 				var nowDoc = document.getElementById('now');
 				nowDoc.className += ' nowWeather';
 				nowDoc.innerHTML = "<h1>"+now.loc+"</h1><br/><h2>"+now.temp+"\xB0C</h2><br/><h3>"+now.con+"</h3>";
