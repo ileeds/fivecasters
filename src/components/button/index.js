@@ -39,7 +39,7 @@ function timeClick(clicked, self, hours, now) {
 	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} rain = {forState.value} loc = {self.state.loc} time = {time}/>);
 	var parent = document.getElementById("cont");
 	parent.replaceChild(replace, parent.childNodes[0]);
-	picReplace(hours[diff].querySelector("h3").innerHTML);
+	picReplace(forState.querySelector("h3").innerHTML);
 }
 
 //updates weather picture when new time is selected
