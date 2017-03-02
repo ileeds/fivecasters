@@ -9,9 +9,11 @@ function search(name, x, y) {
 	window.open(name);
 }
 
-function site(url) {
+function site(url, name) {
 	if (url != null) {
 		window.open(url);
+	} else {
+		window.open("https://www.google.co.uk/search?q="+name);
 	}
 }
 
@@ -20,7 +22,7 @@ export default class Item extends Component {
 	render() {
 		return (
 			<div id='item' class={ style.item }>
-					<div onClick={() => site(this.props.place.site)}>
+					<div onClick={() => site(this.props.place.site, this.props.place.name)}>
 						<div class={style.imgContainer}>
 							<img src={this.props.place.photo} alt="some_text"></img>
 						</div>

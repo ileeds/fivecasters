@@ -62,7 +62,7 @@ export default class Suggest extends Component {
 						var hours = place.venue.hours.status;
 						var address = place.venue.location.address+", "+place.venue.location.city;
 						var phone = place.venue.contact.formattedPhone;
-						var distance = place.venue.location.distance+" meters";
+						var distance = Math.round(0.000621371*parseInt(place.venue.location.distance) * 10) / 10 +"m";
 						var rating = place.venue.rating;
 						var site = place.venue.url;
 						var x = self.props.loc.coords.latitude;
