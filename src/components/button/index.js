@@ -25,7 +25,7 @@ function timeClick(clicked, self, hours, now) {
 
 	clicked.currentTarget.style.borderBottom = "2.5pt solid  #FF0000";
 	var hourDoc = document.getElementById('wrap');
-	var diff = clicked.target.innerHTML-n-1;
+	var diff = parseInt(clicked.target.innerHTML)-n-1;
 	if (diff<0) {
 		diff+=24;
 	}
@@ -165,7 +165,7 @@ export default class Button extends Component {
 				hourDoc.appendChild(hours[0]);
 				//form array of times from now through 24 hours
 				var n = d.getHours()+1;
-				var j = n+24;
+				var j = n+23;
 				var times = [];
 				for (var i=n; i<j; i++){
 					if (i>23){
