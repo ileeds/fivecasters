@@ -3,12 +3,6 @@ import { h, render, Component } from 'preact';
 import style from './style_iphone';
 import Item from '../item/index.js';
 
-//google maps search by current location and selected place
-function search(name, x, y) {
-	name="http://maps.google.com/?ll="+x+','+y+"&q="+name;
-	window.open(name);
-}
-
 export default class Suggest extends Component {
 
   render() {
@@ -71,6 +65,8 @@ export default class Suggest extends Component {
 						var distance = place.venue.location.distance+" meters";
 						var rating = place.venue.rating;
 						var site = place.venue.url;
+						var x = self.props.loc.coords.latitude;
+						var y = self.props.loc.coords.longitude;
 						var toPush = {
 							name: name,
 							photo: photo,
@@ -81,12 +77,11 @@ export default class Suggest extends Component {
 							phone: phone,
 							distance: distance,
 							rating: rating,
-							site: site
+							site: site,
+							x: x,
+							y: y
 						};
 						items.push(toPush);
-						//sug.onclick = function() {
-							//search(place.venue.name, self.props.loc.coords.latitude, self.props.loc.coords.longitude);
-						//}
 					});
 					self.setState({items:items});
 					self.forceUpdate();
