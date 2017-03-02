@@ -30,7 +30,7 @@ export default class Item extends Component {
 						<div class={style.titleDiv}>
 							<h1>{this.props.place.name}</h1>
 							<p>{this.props.place.keyword}</p>
-							<span><b>&pound;</b> {this.props.place.price}</span>
+							<span>&pound;  {this.props.place.price}</span>
 						</div>
 					</div>
 					<p class={style.address}
