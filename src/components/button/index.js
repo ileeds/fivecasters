@@ -6,7 +6,6 @@ import style from './style_iphone';
 import style2 from '../iphone/style';
 import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
-import Settings from '../settings/index';
 
 function timeClick(clicked, self, hours, now) {
 	var d = new Date();
@@ -72,20 +71,18 @@ export default class Button extends Component {
 
 	getInitialState() {
     return {
-      rain: "none",
-			settings: false
+      rain: "none"
     };
   }
 
 	// rendering a function when the button is clicked
 	render() {
-		if (this.state.settings === true) return <Settings onChange={this.settings.bind(this)}/>;
 		//load until state retrieved
 		if (this.state.rain === undefined) return <div />;
     return (
 			<div class={style2.container}>
 				<div>
-					<button id="settings" onclick={() => {this.settings(true)}} type="button" class={style.settings}></button>
+					<a href="../../settings" class={style.settings} />
 				</div>
 				<div>
 					<div id="main" class={style.mainWeatherContainer}>
@@ -134,11 +131,6 @@ export default class Button extends Component {
 				}
 			});
 		});
-	}
-
-	settings(bool) {
-		this.setState({settings: bool});
-		this.componentDidMount();
 	}
 
 	//retrieves current data
