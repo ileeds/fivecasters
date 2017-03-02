@@ -37,7 +37,7 @@ export default class Item extends Component {
 						<span>Pricing: {this.props.place.price}</span>
 					</div>
 				</div>
-				<p class={style.address} onClick={() => search(this.props.place.name, this.props.place.x, this.props.place.y)}>{this.props.place.address}</p>
+				<p class={style.address} onClick={() => search(this.props.place.name, this.props.place.x, this.props.place.y)}>{this.props.place.address} {this.props.place.distance}</p>
 
 			</div>
 		);

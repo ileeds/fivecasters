@@ -45,7 +45,7 @@ function timeClick(clicked, self, hours, now) {
 function conditions (parsed_json) {
 	var toReturn = {
 		loc: parsed_json['current_observation']['display_location']['city'],
-		temp: parsed_json['current_observation']['temp_c'],
+		temp: Math.round(parsed_json['current_observation']['temp_c']),
 		con: parsed_json['current_observation']['weather'],
 		prec: parsed_json['current_observation']['precip_1hr_in']
 	}
@@ -56,7 +56,7 @@ function conditions (parsed_json) {
 function hourly (parsed_json, callback) {
 	var toReturn = {};
 	for (var i=0; i<23; i++){
-		var temp_c = parsed_json['hourly_forecast'][i]['temp']['metric'];
+		var temp_c = Math.round(parsed_json['hourly_forecast'][i]['temp']['metric']);
 		var conditions = parsed_json['hourly_forecast'][i]['wx'];
 		var hour = document.createElement('div');
 		hour.value = parsed_json['hourly_forecast'][i]['pop'];
