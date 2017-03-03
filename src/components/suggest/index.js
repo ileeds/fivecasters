@@ -42,9 +42,9 @@ export default class Suggest extends Component {
 		var params = {
 			"ll": this.props.loc.coords.latitude+","+this.props.loc.coords.longitude,
 			"query": type+inOut+" seating",
-			"openNow": 1,
 			"venuePhotos": 1,
-			"section": "food"
+			"section": "food",
+      "limit": 15
 		};
 		var items = [];
 		var self = this;
@@ -52,7 +52,7 @@ export default class Suggest extends Component {
 				if (!error) {
 					//fill div with results
 					venues.response.groups[0].items.forEach( function (place) {
-						if (place.venue.hours == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined){
+						if (place.venue.location.distance == undefined || place.venue.categories[0].name == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined || place.venue.location.city == undefined || place.venue.location.address == undefined){
 							return;
 						}
 						var name = place.venue.name;
@@ -61,9 +61,7 @@ export default class Suggest extends Component {
 						var price = place.venue.price.message;
 						var hours = place.venue.hours.status;
 						var address = place.venue.location.address+", "+place.venue.location.city;
-						var phone = place.venue.contact.formattedPhone;
 						var distance = Math.round(0.000621371*parseInt(place.venue.location.distance) * 10) / 10 +"m";
-						var rating = place.venue.rating;
 						var site = place.venue.url;
 						var x = self.props.loc.coords.latitude;
 						var y = self.props.loc.coords.longitude;
@@ -74,9 +72,7 @@ export default class Suggest extends Component {
 							price: price,
 							hours: hours,
 							address: address,
-							phone: phone,
 							distance: distance,
-							rating: rating,
 							site: site,
 							x: x,
 							y: y
