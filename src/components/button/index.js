@@ -7,6 +7,7 @@ import style2 from '../iphone/style';
 import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
 
+
 function timeClick(clicked, self, hours, now) {
 	var d = new Date();
 	var n = d.getHours();
@@ -100,6 +101,7 @@ export default class Button extends Component {
 		if (this.state.rain === undefined) return <div />;
     return (
 			<div class={style2.container}>
+
 				<div>
 					<a href="../../settings" class={style.settings} />
 				</div>
