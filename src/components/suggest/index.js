@@ -59,7 +59,7 @@ export default class Suggest extends Component {
 						var photo = place.venue.photos.groups[0].items[0].prefix+place.venue.photos.groups[0].items[0].width+"x"+place.venue.photos.groups[0].items[0].height+place.venue.photos.groups[0].items[0].suffix;
 						var keyword = place.venue.categories[0].name;
 						var price = place.venue.price.message;
-						var hours = place.venue.hours.status;
+						//var hours = place.venue.hours.status;
 						var address = place.venue.location.address+", "+place.venue.location.city;
 						var distance = Math.round(0.000621371*parseInt(place.venue.location.distance) * 10) / 10 +"m";
 						var site = place.venue.url;
@@ -70,7 +70,7 @@ export default class Suggest extends Component {
 							photo: photo,
 							keyword: keyword,
 							price: price,
-							hours: hours,
+							//hours: hours,
 							address: address,
 							distance: distance,
 							site: site,

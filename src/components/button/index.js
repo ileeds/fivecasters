@@ -102,10 +102,12 @@ export default class Button extends Component {
     return (
 			<div class={style2.container}>
 
-				<div>
-					<a href="../../settings" class={style.settings} />
+				<div class={style.topBar}>
+					<p class={style.day}>Today</p>
+					<p class={style.week}>Week</p>
+					<a href="#" class={style.settings} />
 				</div>
-				<div>
+				<div style ="margin-top: 100px;">
 					<div id="main" class={style.mainWeatherContainer}>
 						<img id="weatherPic" class={ style.image } alt="No Image Available"/>
 						<div class={style.weatherContainer}>

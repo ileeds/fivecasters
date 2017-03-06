@@ -23,7 +23,7 @@
   position: relative;
   left: 20px;
   padding: 5pt 5pt 2px;
-  border-bottom: 2.5pt solid #000000;
+  border-bottom: 2.5pt solid #4A90E2;
   text-transform: uppercase;
 }
 
@@ -68,12 +68,43 @@
   justify-content: center;
 }
 
-.settings {
-  float: right;
-  margin: 15pt;
-  width: 36pt;
-  height: 22pt;
-  border: none;
-  position: relative;
-  background: url("../../assets/icons/settings.png") no-repeat;
+.topBar {
+  background: #FFFFFF;
+  height: 39.5pt;
+  padding: 0pt 11.5pt;
+  position: fixed;
+  width: inherit;
+  z-index: 50;
+  border: 1px solid rgb(151, 151, 151);
+
+  .settings {
+	float: right;
+	margin: 11pt 0pt;
+	width: 21.5pt;
+	height: 14pt;
+	border: none;
+	position: relative;
+	content: url("../../assets/icons/settings.png");
+  }
+
+  p {
+	display: block;
+	text-align: left;
+	float: left;
+	font-size: 20pt;
+	margin: 6.5pt 4.5pt;
+	font-weight: 600;
+	height: 34px;
+  }
+
+  .day {
+	border-bottom: 2.5pt solid #000000;
+  }
+
+  .week {
+	opacity: 0.23;
+  }
 }
+
+
+

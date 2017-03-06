@@ -25,16 +25,43 @@
   }
 }
 
+
 .blueBox {
   background: #4A90E2;
-  width: 147.5pt;
+  width: 277px;
+  margin-left: 14pt;
   height: 25pt;
-  right: 89px;
   padding: 5pt;
   position: relative;
   bottom: 14pt;
   color: #FFFFFF;
-  text-transform: uppercase;
+
+
+  ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+
+	li {
+	  float: left;
+	  padding: 0pt 3pt;
+
+	  img {
+		height: 15pt;
+	  }
+
+	  p {
+		margin: 0pt;
+	  }
+
+	  p::before {
+		content: '|';
+		padding: 0pt 5pt 0pt 0pt;
+	  }
+	}
+
+  }
 }
 
 .titleDiv {
@@ -63,11 +90,13 @@
 
   }
 
-  span {
+  .pricing {
 	color: #919191;
 	margin: 0pt;
-	width: 100pt;
 	text-align: right;
+	width: 87px;
+	right: 3px;
+	position: relative;
   }
 }
 
@@ -77,17 +106,26 @@
   font-size: 12pt;
   color: #424242;
   position: relative;
-  bottom: 10pt;
+  bottom: 15pt;
   line-height: 20pt;
   float: left;
 }
 
 .address:before {
-  content: "";
-  display: block;
-  background: url("../../assets/icons/place.png") no-repeat;
-  width: 20pt;
-  height: 20pt;
+  content: url("../../assets/icons/place.png");
+  width: 12pt;
+  height: 17pt;
   float: left;
-  margin: 0 6px 0 0;
+  margin: 0 5px 0 0;
+}
+
+.distance {
+  text-align: right;
+  margin: 0pt 15pt;
+  font-size: 12pt;
+  color: #424242;
+  position: relative;
+  bottom: 14pt;
+  line-height: 20pt;
+  right: 5px;
 }
