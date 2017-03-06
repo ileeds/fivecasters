@@ -103,7 +103,7 @@ export default class Button extends Component {
 			<div class={style2.container}>
 
 				<div>
-					<a href="../../settings" class={style.settings} />
+					<h3 class={style.settings}><span> wEATher </span></h3>
 				</div>
 				<div>
 					<div id="main" class={style.mainWeatherContainer}>

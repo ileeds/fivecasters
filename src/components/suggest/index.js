@@ -21,7 +21,7 @@ export default class Suggest extends Component {
 	componentDidMount() {
 		//indoor or outdoor seating depends on rain and temp
 		var inOut = "outdoor";
-		if (parseInt(this.props.rain)>0 || parseInt(this.props.temp)<8){
+		if (parseInt(this.props.rain)>0 || parseInt(this.props.temp)<20){
 			inOut = "indoor";
 		}
 		var type = "";
@@ -44,7 +44,8 @@ export default class Suggest extends Component {
 			"query": type+inOut+" seating",
 			"venuePhotos": 1,
 			"section": "food",
-      "limit": 15
+      "limit": 15,
+      "radius": 1609.344
 		};
 		var items = [];
 		var self = this;
@@ -52,7 +53,7 @@ export default class Suggest extends Component {
 				if (!error) {
 					//fill div with results
 					venues.response.groups[0].items.forEach( function (place) {
-						if (place.venue.location.distance == undefined || place.venue.categories[0].name == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined || place.venue.location.city == undefined || place.venue.location.address == undefined){
+						if (place.venue.hours == undefined || place.venue.location.distance == undefined || place.venue.categories[0].name == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined || place.venue.location.city == undefined || place.venue.location.address == undefined){
 							return;
 						}
 						var name = place.venue.name;
