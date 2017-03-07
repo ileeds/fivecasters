@@ -107,7 +107,7 @@ export default class Button extends Component {
 					<p class={style.week}>Week</p>
 					<a href="#" class={style.settings} />
 				</div>
-				<div style ="margin-top: 100px;">
+				<div style ="margin-top: 75px;">
 					<div id="main" class={style.mainWeatherContainer}>
 						<img id="weatherPic" class={ style.image } alt="No Image Available"/>
 						<div class={style.weatherContainer}>
