@@ -41,7 +41,7 @@ function timeClick(clicked, self, hours, now) {
 		forState = hours[diff];
 		rain = "x"+forState.value;
 	}
-	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} rain = {rain} loc = {self.state.loc} time = {time}/>);
+	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} con = {forState.childNodes[4].innerHTML.slice(0)} rain = {rain} loc = {self.state.loc} time = {time}/>);
 	var parent = document.getElementById("cont");
 	parent.replaceChild(replace, parent.childNodes[0]);
 	picReplace(forState.querySelector("h3").innerHTML);
@@ -126,7 +126,7 @@ export default class Button extends Component {
 					</div>
 				</div>
 				<div id="cont" class= { style3.container }>
-					<Suggest temp = {this.state.temp} rain = {this.state.rain} loc = {this.state.loc} time = {this.state.time}/>
+					<Suggest temp = {this.state.temp} con = {this.state.con} rain = {this.state.rain} loc = {this.state.loc} time = {this.state.time}/>
 				</div>
 			</div>
 		);
@@ -168,6 +168,7 @@ export default class Button extends Component {
 				var d = new Date();
 				self.setState({rain:now.prec});
 				self.setState({temp:now.temp});
+				self.setState({con:now.con});
 				self.setState({loc:location});
 				self.setState({time:d.getHours()});
 				//render page after getting state

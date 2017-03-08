@@ -90,6 +90,8 @@ export default class Suggest extends Component {
 						var site = place.venue.url;
 						var x = self.props.loc.coords.latitude;
 						var y = self.props.loc.coords.longitude;
+            var temp = self.props.temp;
+            var con = self.props.con;
 						var toPush = {
 							name: name,
 							photo: photo,
@@ -101,7 +103,9 @@ export default class Suggest extends Component {
 							distance: distance,
 							site: site,
 							x: x,
-							y: y
+							y: y,
+              temp: temp,
+              con: con
 						};
 						items.push(toPush);
 					});

@@ -29,7 +29,7 @@ export default class Item extends Component {
 					<div class={style.blueBox}>
 						<ul>
 							<li><img src={itemIcon} alt="weather of area"/></li>
-							<li><p>10 clear</p></li>
+							<li><p>{this.props.place.temp} {this.props.place.con.toLowerCase()}</p></li>
 							<li><p>{this.props.place.hourStart}:00 - {this.props.place.hourEnd}:00</p></li>
 						</ul>
 					</div>
