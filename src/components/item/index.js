@@ -30,7 +30,7 @@ export default class Item extends Component {
 						<ul>
 							<li><img src={itemIcon} alt="weather of area"/></li>
 							<li><p>10 clear</p></li>
-							<li><p>Open until 11:00pm</p></li>
+							<li><p>{this.props.place.hourStart}:00 - {this.props.place.hourEnd}:00</p></li>
 						</ul>
 					</div>
 					<div class={style.titleDiv}>

@@ -34,16 +34,17 @@ export default class Suggest extends Component {
   		}
     }
 		var type = "";
-		if (4<this.props.time && this.props.time<12){
+    var time = this.props.time;
+		if (4<time && time<12){
 			type += "breakfast ";
 		}
-		if (10<this.props.time && this.props.time<18) {
+		if (10<time && time<18) {
 			type += "lunch ";
 		}
-		if (16<this.props.time && this.props.time<24) {
+		if (16<time && time<24) {
 			type += "dinner ";
 		}
-		if (20<this.props.time && this.props.time<25 || -1<this.props.time && this.props.time<6) {
+		if (20<time && time<25 || -1<time && time<6) {
 			type += "late night ";
 		}
 		var foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
@@ -53,7 +54,6 @@ export default class Suggest extends Component {
 			"query": type+inOut+" seating",
 			"venuePhotos": 1,
 			"section": "food",
-      "limit": 15,
       "radius": 1609.344
 		};
 		var items = [];
@@ -62,14 +62,29 @@ export default class Suggest extends Component {
 				if (!error) {
 					//fill div with results
 					venues.response.groups[0].items.forEach( function (place) {
-						if (place.venue.hours == undefined || place.venue.location.distance == undefined || place.venue.categories[0].name == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined || place.venue.location.city == undefined || place.venue.location.address == undefined){
+						if (place.venue.location.distance == undefined || place.venue.categories[0].name == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined || place.venue.location.city == undefined || place.venue.location.address == undefined){
 							return;
 						}
 						var name = place.venue.name;
 						var photo = place.venue.photos.groups[0].items[0].prefix+place.venue.photos.groups[0].items[0].width+"x"+place.venue.photos.groups[0].items[0].height+place.venue.photos.groups[0].items[0].suffix;
 						var keyword = place.venue.categories[0].name;
 						var price = place.venue.price.message;
-						//var hours = place.venue.hours.status;
+
+						var hourStart = place.venue.name.toUpperCase().charCodeAt(0)-67;
+            if (hourStart < 0) {
+              hourStart+=10;
+            }
+            if (time < hourStart) {
+              return;
+            }
+            var hourEnd = place.venue.name.toUpperCase().charCodeAt(1)-67;
+            if (hourEnd < 0) {
+              hourEnd+=20;
+            }
+            if (time >= hourEnd) {
+              return;
+            }
+
 						var address = place.venue.location.address+", "+place.venue.location.city;
 						var distance = Math.round(0.000621371*parseInt(place.venue.location.distance) * 10) / 10 +"Miles";
 						var site = place.venue.url;
@@ -80,7 +95,8 @@ export default class Suggest extends Component {
 							photo: photo,
 							keyword: keyword,
 							price: price,
-							//hours: hours,
+							hourStart: hourStart,
+              hourEnd: hourEnd,
 							address: address,
 							distance: distance,
 							site: site,
