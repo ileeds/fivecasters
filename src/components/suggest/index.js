@@ -24,12 +24,12 @@ export default class Suggest extends Component {
     var rain = "";
     //chance of rain
     if (this.props.rain.charAt(0) == 'x') {
-      if (parseInt(this.props.rain.substring(1))>20 || parseInt(this.props.temp)<20){
+      if (parseInt(this.props.rain.substring(1))>=20 || parseInt(this.props.temp)<15){
   			inOut = "indoor";
   		}
     //amount of rain
     } else {
-      if (parseInt(this.props.rain)>0 || parseInt(this.props.temp)<20){
+      if (parseInt(this.props.rain)>0 || parseInt(this.props.temp)<15){
   			inOut = "indoor";
   		}
     }

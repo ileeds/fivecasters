@@ -107,7 +107,7 @@ export default class Button extends Component {
 			<div class={style2.container}>
 
 				<div style="background: white; position:fixed; height:50px; width:100%" onClick={() => window.scrollTo(0, 0)}>
-					<h3 class={style.settings}>wEATher</h3>
+					<h3 class={style.settings}>SunDiner</h3>
 				</div>
 				<div style ="margin-top: 75px;">
 					<div id="main" class={style.mainWeatherContainer}>
