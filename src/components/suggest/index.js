@@ -10,7 +10,7 @@ export default class Suggest extends Component {
 		if (this.state.items === undefined) return <div />;
     return (
 			<div id='results' class={ style.scroll }>
-			{this.state.items.map(function(item){
+			{this.state.items.map(function(item) {
 				return <Item place={item} />;
 			})}
 			</div>
