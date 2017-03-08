@@ -109,7 +109,7 @@ export default class Button extends Component {
 				<div style="background: white; position:fixed; height:50px; width:100%" onClick={() => window.scrollTo(0, 0)}>
 					<h3 class={style.settings}>wEATher</h3>
 				</div>
-				<div style ="margin-top: 100px;">
+				<div style ="margin-top: 75px;">
 					<div id="main" class={style.mainWeatherContainer}>
 						<img id="weatherPic" class={ style.image } alt="No Image Available"/>
 						<div class={style.weatherContainer}>
