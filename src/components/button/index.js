@@ -30,14 +30,18 @@ function timeClick(clicked, self, hours, now) {
 		diff+=24;
 	}
 	var forState;
+	var rain;
 	if (isNaN(diff)){
 		hourDoc.replaceChild(now, hourDoc.childNodes[0]);
 		forState = now;
+		rain = forState.value;
+
 	} else {
 		hourDoc.replaceChild(hours[diff], hourDoc.childNodes[0]);
 		forState = hours[diff];
+		rain = "x"+forState.value;
 	}
-	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} rain = {forState.value} loc = {self.state.loc} time = {time}/>);
+	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} rain = {rain} loc = {self.state.loc} time = {time}/>);
 	var parent = document.getElementById("cont");
 	parent.replaceChild(replace, parent.childNodes[0]);
 	picReplace(forState.querySelector("h3").innerHTML);
@@ -81,7 +85,7 @@ function hourly (parsed_json, callback) {
 		var hour = document.createElement('div');
 		hour.value = parsed_json['hourly_forecast'][i]['pop'];
 		hour.className = style.weather;
-		hour.innerHTML = "<h2>"+temp_c+"\xB0C</h2><br/><h3>"+conditions+"</h3>";
+		hour.innerHTML = "<h2>"+temp_c+"\xB0C</h2><br/><h3>"+conditions+"</h3><br/><h4>"+hour.value+"</h4>";
 		toReturn[i] = hour;
 	}
 	callback(toReturn);
@@ -102,10 +106,10 @@ export default class Button extends Component {
     return (
 			<div class={style2.container}>
 
-				<div>
-					<h3 class={style.settings}><span> wEATher </span></h3>
+				<div style="background: white; position:fixed; height:50px; width:100%" onClick={() => window.scrollTo(0, 0)}>
+					<h3 class={style.settings}>wEATher</h3>
 				</div>
-				<div>
+				<div style ="margin-top: 100px;">
 					<div id="main" class={style.mainWeatherContainer}>
 						<img id="weatherPic" class={ style.image } alt="No Image Available"/>
 						<div class={style.weatherContainer}>
@@ -185,6 +189,7 @@ export default class Button extends Component {
 				}
 
 				var nowDoc = document.getElementById('now');
+				nowDoc.value = now.prec;
 				nowDoc.className += ' nowWeather';
 				nowDoc.innerHTML = "<h1>"+now.loc+"</h1><br/><h2>"+now.temp+"\xB0C</h2><br/><h3>"+now.con+"</h3>";
 				for (var div in hours) {

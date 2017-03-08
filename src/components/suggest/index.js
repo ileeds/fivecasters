@@ -21,9 +21,18 @@ export default class Suggest extends Component {
 	componentDidMount() {
 		//indoor or outdoor seating depends on rain and temp
 		var inOut = "outdoor";
-		if (parseInt(this.props.rain)>0 || parseInt(this.props.temp)<20){
-			inOut = "indoor";
-		}
+    var rain = "";
+    //chance of rain
+    if (this.props.rain.charAt(0) == 'x') {
+      if (parseInt(this.props.rain.substring(1))>20 || parseInt(this.props.temp)<20){
+  			inOut = "indoor";
+  		}
+    //amount of rain
+    } else {
+      if (parseInt(this.props.rain)>0 || parseInt(this.props.temp)<20){
+  			inOut = "indoor";
+  		}
+    }
 		var type = "";
 		if (4<this.props.time && this.props.time<12){
 			type += "breakfast ";
@@ -60,7 +69,7 @@ export default class Suggest extends Component {
 						var photo = place.venue.photos.groups[0].items[0].prefix+place.venue.photos.groups[0].items[0].width+"x"+place.venue.photos.groups[0].items[0].height+place.venue.photos.groups[0].items[0].suffix;
 						var keyword = place.venue.categories[0].name;
 						var price = place.venue.price.message;
-						var hours = place.venue.hours.status;
+						//var hours = place.venue.hours.status;
 						var address = place.venue.location.address+", "+place.venue.location.city;
 						var distance = Math.round(0.000621371*parseInt(place.venue.location.distance) * 10) / 10 +"m";
 						var site = place.venue.url;
@@ -71,7 +80,7 @@ export default class Suggest extends Component {
 							photo: photo,
 							keyword: keyword,
 							price: price,
-							hours: hours,
+							//hours: hours,
 							address: address,
 							distance: distance,
 							site: site,
