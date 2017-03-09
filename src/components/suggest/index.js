@@ -7,7 +7,8 @@ export default class Suggest extends Component {
 
 	render() {
 		//load until state retrieved
-		if (this.state.items === undefined) return <div / > ;
+		if (this.state.items === undefined) return <div /> ;
+		if (this.state.items === 1) return <div>No Results for this Hour</div> ;
 		return (
       <div id = "cont" class = {style.container} >
 		   <div id = 'results' class = {style.scroll} >
@@ -62,24 +63,23 @@ export default class Suggest extends Component {
 		const self = this;
 		foursquare.exploreVenues(params, function(error, venues) {
 			if (!error) {
+				var count = 0;
 				//fill div with results
 				venues.response.groups[0].items.forEach(function(place) {
 					if (place.venue.location.distance === undefined || place.venue.categories[0].name === undefined || place.venue.price === undefined || place.venue.photos.groups[0] === undefined || place.venue.location.city === undefined || place.venue.location.address === undefined) {
 						return;
 					}
-					var hourStart = place.venue.name.toUpperCase().charCodeAt(0) - 67;
-					if (hourStart < 0) {
-						hourStart += 10;
-					}
-					if (time < hourStart) {
-						return;
-					}
-					var hourEnd = place.venue.name.toUpperCase().charCodeAt(1) - 67;
-					if (hourEnd < 0) {
-						hourEnd += 20;
-					}
-					if (time >= hourEnd) {
-						return;
+					var hourStart = ((place.venue.name.toUpperCase().charCodeAt(0) - 65) % 12) + 5;
+					var hourEnd = ((place.venue.name.toUpperCase().charCodeAt(1) - 65) % 12) + 17;
+					if (hourEnd > 23) {
+						hourEnd -= 24;
+						if (time < hourStart && time >= hourEnd) {
+							return;
+						}
+					} else {
+						if (time >= hourEnd || time < hourStart) {
+							return;
+						}
 					}
 					const toPush = {
 						name: place.venue.name,
@@ -97,10 +97,17 @@ export default class Suggest extends Component {
 						con: self.props.con
 					};
 					items.push(toPush);
+					count++;
 				});
-				self.setState({
-					items: items
-				});
+				if (count > 0) {
+					self.setState({
+						items: items
+					});
+				} else {
+					self.setState({
+						items: 1
+					});
+				}
 				self.forceUpdate();
 			}
 		});
