@@ -135,8 +135,8 @@ export default {
 					var conditions = parsed_json['hourly_forecast'][i]['wx'];
 					var hour = document.createElement('div');
 					hour.value = parsed_json['hourly_forecast'][i]['pop'];
-					hour.className = style.weather;
-					hour.innerHTML = "<h2>" + temp_c + "\xB0C</h2><br/><h3>" + conditions + "</h3><br/><h4>" + hour.value + "</h4>";
+					hour.className = style.weatherLater;
+					hour.innerHTML = "<h2>" + temp_c + "\xB0C</h2><br/><h3>" + conditions + "</h3><br/><h4>Chance of rain: " + hour.value + "&#37;</h4>";
 					toReturn[i] = hour;
 				}
 				callback(toReturn);
