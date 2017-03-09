@@ -60,17 +60,17 @@ export default {
 			picReplace(con) {
 				var img = document.getElementById('weatherPic');
 				if (con.includes("Cloud")) {
-					img.src = "../../assets/icons/cloudy-01.png";
+					img.src = "../../assets/icons/Cloudy-01.jpg";
 				} else if (con.includes("Fog")) {
-					img.src = "../../assets/icons/fog-01.png";
+					img.src = "../../assets/icons/Fog-01.jpg";
 				} else if (con.includes("Rain")) {
-					img.src = "../../assets/icons/rain-01.png";
+					img.src = "../../assets/icons/Rain-01.jpg";
 				} else if (con.includes("Sleet")) {
-					img.src = "../../assets/icons/sleet.png";
+					img.src = "../../assets/icons/Sleet-01.jpg";
 				} else if (con.includes("Thunder")) {
-					img.src = "../../assets/icons/thunderstorm.png";
+					img.src = "../../assets/icons/Thunderstorm-01.jpg";
 				} else {
-					img.src = "../../assets/icons/sunny.png";
+					img.src = "../../assets/icons/Sunny-01.jpg";
 				}
 			},
 

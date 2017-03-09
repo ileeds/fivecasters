@@ -84,17 +84,17 @@ export default class Weather extends Component {
 				//conditionally render weather image based on conditions
 				var img = document.getElementById('weatherPic');
 				if (now.con.includes("Cloud")){
-					img.src = "../../assets/icons/cloudy-01.png";
+					img.src = "../../assets/icons/Cloudy-01.jpg";
 				} else if (now.con.includes("Fog")) {
-					img.src = "../../assets/icons/fog-01.png";
+					img.src = "../../assets/icons/Fog-01.jpg";
 				} else if (now.con.includes("Rain")) {
-					img.src = "../../assets/icons/rain-01.png";
+					img.src = "../../assets/icons/Rain-01.jpg";
 				} else if (now.con.includes("Sleet")) {
-					img.src = "../../assets/icons/sleet.png";
+					img.src = "../../assets/icons/Sleet-01.jpg";
 				} else if (now.con.includes("Thunder")) {
-					img.src = "../../assets/icons/thunderstorm.png";
+					img.src = "../../assets/icons/Thunderstorm-01.jpg";
 				} else {
-					img.src = "../../assets/icons/sunny.png";
+					img.src = "../../assets/icons/Sunny-01.jpg";
 				}
 
 				var nowDoc = document.getElementById('now');
