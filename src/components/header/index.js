@@ -6,92 +6,10 @@ import style from './style_iphone';
 import style2 from '../iphone/style';
 import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
+import helper from '../../helpers'
 
 
-function timeClick(clicked, self, hours, now) {
-	var d = new Date();
-	var n = d.getHours();
-	var time = parseInt(clicked.currentTarget.innerHTML);
-	if (isNaN(time)){
-		time=n;
-	}
-	var focus = document.getElementsByClassName(style.hour);
-	for (var i=0; i<focus.length; i++) {
-		focus[i].style.borderBottom = "";
-	}
-
-	var unfocus = document.getElementById('start');
-	unfocus.style.borderBottom = "2.5pt solid  #000000";
-
-	clicked.currentTarget.style.borderBottom = "2.5pt solid  #4A90E2";
-	var hourDoc = document.getElementById('wrap');
-	var diff = parseInt(clicked.target.innerHTML)-n-1;
-	if (diff<0) {
-		diff+=24;
-	}
-	var forState;
-	var rain;
-	if (isNaN(diff)){
-		hourDoc.replaceChild(now, hourDoc.childNodes[0]);
-		forState = now;
-		rain = forState.value;
-
-	} else {
-		hourDoc.replaceChild(hours[diff], hourDoc.childNodes[0]);
-		forState = hours[diff];
-		rain = "x"+forState.value;
-	}
-	var replace = render(<Suggest temp = {forState.childNodes[2].innerHTML.slice(0,-2)} con = {forState.childNodes[4].innerHTML.slice(0)} rain = {rain} loc = {self.state.loc} time = {time}/>);
-	var parent = document.getElementById("cont");
-	parent.replaceChild(replace, parent.childNodes[0]);
-	picReplace(forState.querySelector("h3").innerHTML);
-}
-
-//updates weather picture when new time is selected
-function picReplace(con) {
-	var img = document.getElementById('weatherPic');
-	if (con.includes("Cloud")){
-		img.src = "../../assets/icons/cloudy-01.png";
-	} else if (con.includes("Fog")) {
-		img.src = "../../assets/icons/fog-01.png";
-	} else if (con.includes("Rain")) {
-		img.src = "../../assets/icons/rain-01.png";
-	} else if (con.includes("Sleet")) {
-		img.src = "../../assets/icons/sleet.png";
-	} else if (con.includes("Thunder")) {
-		img.src = "../../assets/icons/thunderstorm.png";
-	} else {
-		img.src = "../../assets/icons/sunny.png";
-	}
-}
-
-//daily data returned to component
-function conditions (parsed_json) {
-	var toReturn = {
-		loc: parsed_json['current_observation']['display_location']['city'],
-		temp: Math.round(parsed_json['current_observation']['temp_c']),
-		con: parsed_json['current_observation']['weather'],
-		prec: parsed_json['current_observation']['precip_1hr_in']
-	}
-	return toReturn;
-}
-
-//hourly data passed to callback function
-function hourly (parsed_json, callback) {
-	var toReturn = {};
-	for (var i=0; i<23; i++){
-		var temp_c = Math.round(parsed_json['hourly_forecast'][i]['temp']['metric']);
-		var conditions = parsed_json['hourly_forecast'][i]['wx'];
-		var hour = document.createElement('div');
-		hour.value = parsed_json['hourly_forecast'][i]['pop'];
-		hour.className = style.weather;
-		hour.innerHTML = "<h2>"+temp_c+"\xB0C</h2><br/><h3>"+conditions+"</h3><br/><h4>"+hour.value+"</h4>";
-		toReturn[i] = hour;
-	}
-	callback(toReturn);
-}
-
-export default class Button extends Component {
+export default class Weather extends Component {
 
 	getInitialState() {
     return {
@@ -99,14 +17,13 @@ export default class Button extends Component {
     };
   }
 
-	// rendering a function when the button is clicked
 	render() {
 		//load until state retrieved
 		if (this.state.rain === undefined) return <div />;
     return (
 			<div class={style2.container}>
 
-				<div style="background: white; position:fixed; height:50px; width:100%" onClick={() => window.scrollTo(0, 0)}>
+				<div style="z-index: 5; background: white; position:fixed; height:50px; width:100%" onClick={() => window.scrollTo(0, 0)}>
 					<h3 class={style.settings}>SunDiner</h3>
 				</div>
 				<div style ="margin-top: 75px;">
@@ -149,7 +66,7 @@ export default class Button extends Component {
 					throw err;
 				} else {
 					//callback function to wait for async to finish
-					hourly(data, function(toReturn) {
+					helper.hourly(data, function(toReturn) {
 						hours = toReturn;
 					});
 					self.current(wunderground, query, now, self, location, hours);
@@ -164,7 +81,7 @@ export default class Button extends Component {
 			if (err) {
 				throw err;
 			} else {
-				now = conditions(data);
+				now = helper.conditions(data);
 				var d = new Date();
 				self.setState({rain:now.prec});
 				self.setState({temp:now.temp});
@@ -213,14 +130,14 @@ export default class Button extends Component {
 				document.getElementById('start').onclick = function(e) {
 					var d = new Date();
 					var n = d.getHours();
-					timeClick(e, self, hours, nowDoc);
+					helper.timeClick(e, self, hours, nowDoc);
 				}
 				for (var hour in times) {
 					var single = document.createElement('div');
 					single.className = style.hour;
 					single.innerHTML = times[hour]+":00";
 					single.onclick = function(e) {
-						timeClick(e, self, hours, nowDoc);
+						helper.timeClick(e, self, hours, nowDoc);
 					}
 					slide.appendChild(single);
 				}

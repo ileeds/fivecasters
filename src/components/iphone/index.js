@@ -1,11 +1,11 @@
 // import preact
 import { h, render, Component } from 'preact';
-// import stylesheets for ipad & button
+// import stylesheets for ipad & weather
 import style from './style';
-import style_iphone from '../button/style_iphone';
+import style_iphone from '../weather/style_iphone';
 import style_iphone_two from '../suggest/style_iphone';
-// import the Button component
-import Button from '../button';
+// import the Weather component
+import Weather from '../weather';
 import Suggest from '../suggest';
 
 export default class Iphone extends Component {
@@ -14,7 +14,7 @@ export default class Iphone extends Component {
 		// display all weather data
 		return (
 			<div class= { style_iphone.container }>
-				<Button class={ style_iphone.button } />
+				<Weather class={ style_iphone.weather } />
 			</div>
 		);
 	}

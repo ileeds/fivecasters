@@ -2,27 +2,15 @@
 import {h, render, Component} from 'preact';
 import style from './style_iphone';
 import itemIcon from '../../assets/icons/itemIconWhite.png';
+import helper from '../../helpers'
 
-//google maps search by current location and selected place
-function search(name, x, y) {
-	name = "http://maps.google.com/?ll=" + x + ',' + y + "&q=" + name;
-	window.open(name);
-}
-
-function site(url, name) {
-	if (url != null) {
-		window.open(url);
-	} else {
-		window.open("https://www.google.co.uk/search?q=" + name);
-	}
-}
 
 export default class Item extends Component {
 
 	render() {
 		return (
 			<div id='item' class={ style.item }>
-				<div onClick={() => site(this.props.place.site, this.props.place.name)}>
+				<div onClick={() => helper.site(this.props.place.site, this.props.place.name)}>
 					<div class={style.imgContainer}>
 						<img src={this.props.place.photo} alt="some_text"></img>
 					</div>
@@ -39,7 +27,7 @@ export default class Item extends Component {
 						<p class={style.pricing}>&pound;  {this.props.place.price}</p>
 					</div>
 				</div>
-				<div onClick={() => search(this.props.place.name, this.props.place.x, this.props.place.y)}>
+				<div onClick={() => helper.search(this.props.place.name, this.props.place.x, this.props.place.y)}>
 					<p class={style.address}>
 						{this.props.place.address}
 					</p>
