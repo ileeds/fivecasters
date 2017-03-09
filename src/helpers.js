@@ -53,24 +53,64 @@ export default {
 					time
 				}
 				/>);
-				var parent = document.getElementById("cont"); parent.replaceChild(replace, parent.childNodes[0]); this.picReplace(forState.querySelector("h3").innerHTML);
+				var parent = document.getElementById("cont");
+				parent.replaceChild(replace, parent.childNodes[0]);
+				this.picReplace(forState.querySelector("h3").innerHTML);
 			},
 
 			//updates weather picture when new time is selected
 			picReplace(con) {
 				var img = document.getElementById('weatherPic');
-				if (con.includes("Cloud")) {
+				if (con.includes("Partly Cloudy")){
+					img.src = "../../assets/icons/Partly-cloudy-01.jpg";
+				} else if (con.includes("Mostly Cloudy")){
+					img.src = "../../assets/icons/Mostly-cloudy-01.jpg";
+				} else if (con.includes("Scattered Clouds")){
+					img.src = "../../assets/icons/Scattered-cloud-01.jpg";
+				} else if (con.includes("Cloud")){
 					img.src = "../../assets/icons/Cloudy-01.jpg";
 				} else if (con.includes("Fog")) {
 					img.src = "../../assets/icons/Fog-01.jpg";
+				} else if (con.includes("Rain Mist")){
+					img.src = "../../assets/icons/Rain-mist-01.jpg";
+				} else if (con.includes("Rain Showers")){
+					img.src = "../../assets/icons/Rain-shower-2nd-01.jpg";
+				} else if (con.includes("Hail")){
+					img.src = "../../assets/icons/Hail-shower-01.jpg";
 				} else if (con.includes("Rain")) {
 					img.src = "../../assets/icons/Rain-01.jpg";
 				} else if (con.includes("Sleet")) {
 					img.src = "../../assets/icons/Sleet-01.jpg";
+				} else if (con.includes("Thunderstorms and Rain")) {
+					img.src = "../../assets/icons/Thunderstorm-and-rain-01.jpg";
+				} else if (con.includes("Thunderstorms and Snow")) {
+					img.src = "../../assets/icons/Thunderstorm-and-snow-01-01.jpg";
+				} else if (con.includes("Thunderstorms and Ice Pellets")) {
+					img.src = "../../assets/icons/Thunderstorm-and-ice-pellets-01.jpg";
+				} else if (con.includes("Thunderstorms with")) {
+					img.src = "../../assets/icons/Thunderstorm-and-hail-01.jpg";
 				} else if (con.includes("Thunder")) {
 					img.src = "../../assets/icons/Thunderstorm-01.jpg";
+				} else if (con.includes("Drizzle")){
+					img.src = "../../assets/icons/Drizzle-01.jpg";
+				} else if (con.includes("Snow Shower")){
+					img.src = "../../assets/icons/Snow-shower-01-01.jpg";
+				} else if (con.includes("Snow Grains")){
+					img.src = "../../assets/icons/Snow-grain-01.jpg";
+				} else if (con.includes("Snow")){
+					img.src = "../../assets/icons/Snow-01.jpg";
+				} else if (con.includes("Ice")){
+					img.src = "../../assets/icons/Snow-01.jpg";
+				} else if (con.includes("Hail")){
+					img.src = "../../assets/icons/Hail-shower-01.jpg";
+				} else if (con.includes("Spray")){
+					img.src = "../../assets/icons/Spray-01.jpg";
+				} else if (con.includes("Overcast")){
+					img.src = "../../assets/icons/Overcast-01.jpg";
+				} else if (con.includes("Clear")){
+					img.src = "../../assets/icons/Clear0-1.jpg";
 				} else {
-					img.src = "../../assets/icons/Sunny-01.jpg";
+					img.src = "../../assets/icons/Haze-01.jpg";
 				}
 			},
 

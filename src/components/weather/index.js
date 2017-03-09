@@ -81,21 +81,9 @@ export default class Weather extends Component {
 				self.setState({time:d.getHours()});
 				//render page after getting state
 				self.forceUpdate();
+
 				//conditionally render weather image based on conditions
-				var img = document.getElementById('weatherPic');
-				if (now.con.includes("Cloud")){
-					img.src = "../../assets/icons/Cloudy-01.jpg";
-				} else if (now.con.includes("Fog")) {
-					img.src = "../../assets/icons/Fog-01.jpg";
-				} else if (now.con.includes("Rain")) {
-					img.src = "../../assets/icons/Rain-01.jpg";
-				} else if (now.con.includes("Sleet")) {
-					img.src = "../../assets/icons/Sleet-01.jpg";
-				} else if (now.con.includes("Thunder")) {
-					img.src = "../../assets/icons/Thunderstorm-01.jpg";
-				} else {
-					img.src = "../../assets/icons/Sunny-01.jpg";
-				}
+				helper.picReplace(now.con);
 
 				var nowDoc = document.getElementById('now');
 				nowDoc.value = now.prec;
