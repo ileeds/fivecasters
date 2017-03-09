@@ -27,7 +27,7 @@ export default class Weather extends Component {
 						<Icon />
 						<div class={style.weatherContainer}>
 							<div id="wrap" style="overflow: hidden; height: 300px; width: 20000px;">
-								<div id='now' class={ style.weather }>
+								<div id='now' class={ style.weatherNow }>
 									Loading, please wait...
 								</div>
 							</div>

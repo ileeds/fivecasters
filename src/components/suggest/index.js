@@ -8,7 +8,7 @@ export default class Suggest extends Component {
 	render() {
 		//load until state retrieved
 		if (this.state.items === undefined) return <div /> ;
-		if (this.state.items === 1) return <div>No Results for this Hour</div> ;
+		if (this.state.items === 1) return <div class={style.noResults}>No Results for this Hour :(</div> ;
 		return (
       <div id = "cont" class = {style.container} >
 		   <div id = 'results' class = {style.scroll} >
