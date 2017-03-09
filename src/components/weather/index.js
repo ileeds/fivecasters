@@ -1,11 +1,10 @@
 // import preact
 import { h, render, Component } from 'preact';
-// import jquery for API calls
-import $ from 'jquery';
 import style from './style_iphone';
-import style2 from '../iphone/style';
-import style3 from '../suggest/style_iphone';
 import Suggest from '../suggest/index';
+import Header from '../header/index';
+import Icon from '../icon/index';
+import Slider from '../slider/index';
 import helper from '../../helpers'
 
 
@@ -21,14 +20,11 @@ export default class Weather extends Component {
 		//load until state retrieved
 		if (this.state.rain === undefined) return <div />;
     return (
-			<div class={style2.container}>
-
-				<div style="z-index: 5; background: white; position:fixed; height:50px; width:100%" onClick={() => window.scrollTo(0, 0)}>
-					<h3 class={style.settings}>SunDiner</h3>
-				</div>
+			<div class={style.container}>
+				<Header />
 				<div style ="margin-top: 75px;">
 					<div id="main" class={style.mainWeatherContainer}>
-						<img id="weatherPic" class={ style.image } alt="No Image Available"/>
+						<Icon />
 						<div class={style.weatherContainer}>
 							<div id="wrap" style="overflow: hidden; height: 300px; width: 20000px;">
 								<div id='now' class={ style.weather }>
@@ -37,14 +33,9 @@ export default class Weather extends Component {
 							</div>
 						</div>
 					</div>
-					<div id="slideContainer" class={style.slideContainer}>
-						<div id='start' class={style.now}> Now </div>
-						<div id='wun' class={ style.scroll } />
-					</div>
+					<Slider />
 				</div>
-				<div id="cont" class= { style3.container }>
-					<Suggest temp = {this.state.temp} con = {this.state.con} rain = {this.state.rain} loc = {this.state.loc} time = {this.state.time}/>
-				</div>
+				<Suggest temp = {this.state.temp} con = {this.state.con} rain = {this.state.rain} loc = {this.state.loc} time = {this.state.time}/>
 			</div>
 		);
   }

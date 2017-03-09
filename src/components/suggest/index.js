@@ -9,11 +9,13 @@ export default class Suggest extends Component {
 		//load until state retrieved
 		if (this.state.items === undefined) return <div />;
     return (
-			<div id='results' class={ style.scroll }>
-			{this.state.items.map(function(item) {
-				return <Item place={item} />;
-			})}
-			</div>
+      <div id="cont" class= { style.container }>
+  			<div id='results' class={ style.scroll }>
+  			{this.state.items.map(function(item) {
+  				return <Item place={item} />;
+  			})}
+  			</div>
+      </div>
 		);
   }
 
