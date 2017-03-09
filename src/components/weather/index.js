@@ -74,11 +74,12 @@ export default class Weather extends Component {
 			} else {
 				now = helper.conditions(data);
 				var d = new Date();
-				self.setState({rain:now.prec});
-				self.setState({temp:now.temp});
-				self.setState({con:now.con});
-				self.setState({loc:location});
-				self.setState({time:d.getHours()});
+				self.setState({rain:now.prec,
+											temp:now.temp,
+											con:now.con,
+											loc:location,
+											time:d.getHours()}
+				);
 				//render page after getting state
 				self.forceUpdate();
 				//conditionally render weather image based on conditions
