@@ -12,9 +12,9 @@ export default class Suggest extends Component {
 		return (
       <div id = "cont" class = {style.container} >
 		   <div id = 'results' class = {style.scroll} >
-         {this.state.items.map(function(item) {
-  					return <Item place = {item}/>;
-          })}
+        {this.state.items.map(function(item) {
+  				return <Item place = {item}/>;
+        })}
        </div>
      </div>
 		);
@@ -63,14 +63,14 @@ export default class Suggest extends Component {
 		const self = this;
 		foursquare.exploreVenues(params, function(error, venues) {
 			if (!error) {
-				var count = 0;
+				let count = 0;
 				//fill div with results
 				venues.response.groups[0].items.forEach(function(place) {
 					if (place.venue.location.distance === undefined || place.venue.categories[0].name === undefined || place.venue.price === undefined || place.venue.photos.groups[0] === undefined || place.venue.location.city === undefined || place.venue.location.address === undefined) {
 						return;
 					}
-					var hourStart = ((place.venue.name.toUpperCase().charCodeAt(0) - 65) % 12) + 5;
-					var hourEnd = ((place.venue.name.toUpperCase().charCodeAt(1) - 65) % 12) + 17;
+					let hourStart = ((place.venue.name.toUpperCase().charCodeAt(0) - 65) % 12) + 5;
+					let hourEnd = ((place.venue.name.toUpperCase().charCodeAt(1) - 65) % 12) + 17;
 					if (hourEnd > 23) {
 						hourEnd -= 24;
 						if (time < hourStart && time >= hourEnd) {
