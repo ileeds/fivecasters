@@ -10,13 +10,13 @@ export default class Suggest extends Component {
 		if (this.state.items === undefined) return <div /> ;
 		if (this.state.items === 1) return <div class={style.noResults}>No Results for this Hour :(</div> ;
 		return (
-      <div id = "cont" class = {style.container} >
-		   <div id = 'results' class = {style.scroll} >
-        {this.state.items.map(function(item) {
-  				return <Item place = {item}/>;
-        })}
-       </div>
-     </div>
+			<div id = "cont" class = {style.container} >
+				<div id = 'results' class = {style.scroll} >
+				{this.state.items.map(function(item) {
+					return <Item place = {item}/>;
+				})}
+				</div>
+			</div>
 		);
 	}
 
@@ -27,12 +27,12 @@ export default class Suggest extends Component {
 		let rain = "";
 		//chance of rain
 		if (this.props.rain.charAt(0) === 'x') {
-			if (parseInt(this.props.rain.substring(1)) >= 20 || parseInt(this.props.temp) < 15) {
+			if (parseInt(this.props.rain.substring(1), 10) >= 20 || parseInt(this.props.temp, 10) < 15) {
 				inOut = "indoor";
 			}
 			//amount of rain
 		} else {
-			if (parseInt(this.props.rain) > 0 || parseInt(this.props.temp) < 15) {
+			if (parseInt(this.props.rain, 10) > 0 || parseInt(this.props.temp, 10) < 15) {
 				inOut = "indoor";
 			}
 		}
@@ -69,15 +69,15 @@ export default class Suggest extends Component {
 					if (place.venue.location.distance === undefined || place.venue.categories[0].name === undefined || place.venue.price === undefined || place.venue.photos.groups[0] === undefined || place.venue.location.city === undefined || place.venue.location.address === undefined) {
 						return;
 					}
-					let hourStart = ((place.venue.name.toUpperCase().charCodeAt(0) - 65) % 12) + 5;
-					let hourEnd = ((place.venue.name.toUpperCase().charCodeAt(1) - 65) % 12) + 17;
-					if (hourEnd > 23) {
-						hourEnd -= 24;
-						if (time < hourStart && time >= hourEnd) {
+					let hourSt = ((place.venue.name.toUpperCase().charCodeAt(0) - 65) % 12) + 5;
+					let hourE = ((place.venue.name.toUpperCase().charCodeAt(1) - 65) % 12) + 17;
+					if (hourE > 23) {
+						hourE -= 24;
+						if (time < hourSt && time >= hourE) {
 							return;
 						}
 					} else {
-						if (time >= hourEnd || time < hourStart) {
+						if (time >= hourE || time < hourSt) {
 							return;
 						}
 					}
@@ -86,10 +86,10 @@ export default class Suggest extends Component {
 						photo: place.venue.photos.groups[0].items[0].prefix + place.venue.photos.groups[0].items[0].width + "x" + place.venue.photos.groups[0].items[0].height + place.venue.photos.groups[0].items[0].suffix,
 						keyword: place.venue.categories[0].name,
 						price: place.venue.price.message,
-						hourStart: hourStart,
-						hourEnd: hourEnd,
+						hourStart: hourSt,
+						hourEnd: hourE,
 						address: place.venue.location.address + ", " + place.venue.location.city,
-						distance: Math.round(0.000621371 * parseInt(place.venue.location.distance) * 10) / 10 + "Miles",
+						distance: Math.round(0.000621371 * parseInt(place.venue.location.distance, 10) * 10) / 10 + "Miles",
 						site: place.venue.url,
 						x: self.props.loc.coords.latitude,
 						y: self.props.loc.coords.longitude,
