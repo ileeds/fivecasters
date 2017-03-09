@@ -81,9 +81,8 @@ export default class Weather extends Component {
 				self.setState({time:d.getHours()});
 				//render page after getting state
 				self.forceUpdate();
-
 				//conditionally render weather image based on conditions
-				helper.picReplace(now.con);
+				helper.picReplace(now.con, d.getHours(), location);
 
 				var nowDoc = document.getElementById('now');
 				nowDoc.value = now.prec;

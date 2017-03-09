@@ -55,22 +55,48 @@ export default {
 				/>);
 				var parent = document.getElementById("cont");
 				parent.replaceChild(replace, parent.childNodes[0]);
-				this.picReplace(forState.querySelector("h3").innerHTML);
+				this.picReplace(forState.querySelector("h3").innerHTML, time, self.state.loc);
 			},
 
 			//updates weather picture when new time is selected
-			picReplace(con) {
+			picReplace(con, time, loc) {
+				const SunCalc = require('suncalc');
+				var calc = SunCalc.getTimes(new Date(), loc.coords.latitude, loc.coords.longitude);
+				var night = false;
+				if (time > calc.sunset.getHours() || time < calc.sunrise.getHours()) {
+					night = true;
+				}
 				var img = document.getElementById('weatherPic');
 				if (con.includes("Partly Cloudy")){
-					img.src = "../../assets/icons/Partly-cloudy-01.jpg";
+					if (night === true) {
+						img.src = "../../assets/icons/Partly-cloudy-night-01-01.jpg";
+					} else {
+						img.src = "../../assets/icons/Partly-cloudy-01.jpg";
+					}
 				} else if (con.includes("Sun")){
-					img.src = "../../assets/icons/Sunny-01.jpg";
+					if (night === true) {
+						img.src = "../../assets/icons/Clear-sky-night-01.jpg";
+					} else {
+						img.src = "../../assets/icons/Sunny-01.jpg";
+					}
 				} else if (con.includes("Mostly Cloudy")){
-					img.src = "../../assets/icons/Mostly-cloudy-01.jpg";
+					if (night === true) {
+						img.src = "../../assets/icons/Partly-cloudy-night-01-01.jpg";
+					} else {
+						img.src = "../../assets/icons/Mostly-cloudy-01.jpg";
+					}
 				} else if (con.includes("Scattered Clouds")){
-					img.src = "../../assets/icons/Scattered-cloud-01.jpg";
+					if (night === true) {
+						img.src = "../../assets/icons/Partly-cloudy-night-01-01.jpg";
+					} else {
+						img.src = "../../assets/icons/Scattered-cloud-01.jpg";
+					}
 				} else if (con.includes("Cloud")){
-					img.src = "../../assets/icons/Cloudy-01.jpg";
+					if (night === true) {
+						img.src = "../../assets/icons/Partly-cloudy-night-01-01.jpg";
+					} else {
+						img.src = "../../assets/icons/Cloudy-01.jpg";
+					}
 				} else if (con.includes("Fog")) {
 					img.src = "../../assets/icons/Fog-01.jpg";
 				} else if (con.includes("Rain Mist")){
@@ -80,7 +106,11 @@ export default {
 				} else if (con.includes("Hail")){
 					img.src = "../../assets/icons/Hail-shower-01.jpg";
 				} else if (con.includes("Rain")) {
-					img.src = "../../assets/icons/Rain-01.jpg";
+					if (night === true) {
+						img.src = "../../assets/icons/rain-night-01.jpg";
+					} else {
+						img.src = "../../assets/icons/Rain-01.jpg";
+					}
 				} else if (con.includes("Sleet")) {
 					img.src = "../../assets/icons/Sleet-01.jpg";
 				} else if (con.includes("Thunderstorms and Rain")) {
@@ -110,7 +140,11 @@ export default {
 				} else if (con.includes("Overcast")){
 					img.src = "../../assets/icons/Overcast-01.jpg";
 				} else if (con.includes("Clear")){
-					img.src = "../../assets/icons/Clear0-1.jpg";
+					if (night === true) {
+						img.src = "../../assets/icons/Clear-sky-night-01.jpg";
+					} else {
+						img.src = "../../assets/icons/Clear0-1.jpg";
+					}
 				} else {
 					img.src = "../../assets/icons/Haze-01.jpg";
 				}
