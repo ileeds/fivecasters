@@ -31,10 +31,8 @@ export default class Suggest extends Component {
 				inOut = "indoor";
 			}
 			//amount of rain
-		} else {
-			if (parseInt(this.props.rain, 10) > 0 || parseInt(this.props.temp, 10) < 15) {
-				inOut = "indoor";
-			}
+		} else if (parseInt(this.props.rain, 10) > 0 || parseInt(this.props.temp, 10) < 15) {
+			inOut = "indoor";
 		}
 		let type = "";
 		let time = this.props.time;
@@ -59,7 +57,7 @@ export default class Suggest extends Component {
 			"section": "food",
 			"radius": 1609.344
 		};
-		let items = [];
+		let itemsArray = [];
 		const self = this;
 		foursquare.exploreVenues(params, function(error, venues) {
 			if (!error) {
@@ -76,10 +74,8 @@ export default class Suggest extends Component {
 						if (time < hourSt && time >= hourE) {
 							return;
 						}
-					} else {
-						if (time >= hourE || time < hourSt) {
-							return;
-						}
+					} else if (time >= hourE || time < hourSt) {
+						return;
 					}
 					const toPush = {
 						name: place.venue.name,
@@ -96,12 +92,12 @@ export default class Suggest extends Component {
 						temp: self.props.temp,
 						con: self.props.con
 					};
-					items.push(toPush);
+					itemsArray.push(toPush);
 					count++;
 				});
 				if (count > 0) {
 					self.setState({
-						items: items
+						items: itemsArray
 					});
 				} else {
 					self.setState({
