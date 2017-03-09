@@ -157,7 +157,8 @@ export default {
 			},
 
 			scrollBack() {
-				
+				var scroll = document.getElementById('wun');
+				scroll.scrollLeft = 0;
 			}
 
 	}

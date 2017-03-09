@@ -1,7 +1,7 @@
 // import preact
 import { h, render, Component } from 'preact';
 import style from './style_iphone';
-
+import helper from '../../helpers'
 
 export default class Slider extends Component {
 
