@@ -2,6 +2,7 @@
 import {h, render, Component} from 'preact';
 import style from './style_iphone';
 import Item from '../item/index.js';
+import helper from '../../helpers';
 
 export default class Suggest extends Component {
 
@@ -67,8 +68,8 @@ export default class Suggest extends Component {
 					if (place.venue.location.distance === undefined || place.venue.categories[0].name === undefined || place.venue.price === undefined || place.venue.photos.groups[0] === undefined || place.venue.location.city === undefined || place.venue.location.address === undefined) {
 						return;
 					}
-					let hourSt = ((place.venue.name.toUpperCase().charCodeAt(0) - 65) % 12) + 5;
-					let hourE = ((place.venue.name.toUpperCase().charCodeAt(1) - 65) % 12) + 17;
+					let hourSt = helper.fakeTime(place, 0, 5);
+					let hourE = helper.fakeTime(place, 1, 17);
 					if (hourE > 23) {
 						hourE -= 24;
 						if (time < hourSt && time >= hourE) {

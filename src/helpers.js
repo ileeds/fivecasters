@@ -193,6 +193,10 @@ export default {
 			scrollBack() {
 				var scroll = document.getElementById('wun');
 				scroll.scrollLeft = 0;
+			},
+
+			fakeTime(place, i, j) {
+				return ((place.venue.name.toUpperCase().charCodeAt(i) - 65) % 12) + j;
 			}
 
 	}
