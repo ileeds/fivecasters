@@ -12,8 +12,8 @@ export default class Suggest extends Component {
       <div id = "cont" class = {style.container} >
 		   <div id = 'results' class = {style.scroll} >
          {this.state.items.map(function(item) {
-  					return <Item place = {item} />;
-  				})}
+  					return <Item place = {item}/>;
+          })}
        </div>
      </div>
 		);
@@ -22,10 +22,10 @@ export default class Suggest extends Component {
 	//gets current location, will lead to hitting foursquare api
 	componentDidMount() {
 		//indoor or outdoor seating depends on rain and temp
-		var inOut = "outdoor";
-		var rain = "";
+		let inOut = "outdoor";
+		let rain = "";
 		//chance of rain
-		if (this.props.rain.charAt(0) == 'x') {
+		if (this.props.rain.charAt(0) === 'x') {
 			if (parseInt(this.props.rain.substring(1)) >= 20 || parseInt(this.props.temp) < 15) {
 				inOut = "indoor";
 			}
@@ -35,8 +35,8 @@ export default class Suggest extends Component {
 				inOut = "indoor";
 			}
 		}
-		var type = "";
-		var time = this.props.time;
+		let type = "";
+		let time = this.props.time;
 		if (4 < time && time < 12) {
 			type += "breakfast ";
 		}
@@ -49,29 +49,24 @@ export default class Suggest extends Component {
 		if (20 < time && time < 25 || -1 < time && time < 6) {
 			type += "late night ";
 		}
-		var foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
+		const foursquare = (require('foursquarevenues'))('HJTXFPU0B2WFEZZTCN4223VERJBRELYL53TLIV2OEAIXMJBT', '23T2KUXPDQAYVKRG5JZILOHMBIWGOVKXNEIN0RGNXVUCR3VB');
 		//outdoor seating close to current location
-		var params = {
+		const params = {
 			"ll": this.props.loc.coords.latitude + "," + this.props.loc.coords.longitude,
 			"query": type + inOut + " seating",
 			"venuePhotos": 1,
 			"section": "food",
 			"radius": 1609.344
 		};
-		var items = [];
-		var self = this;
+		let items = [];
+		const self = this;
 		foursquare.exploreVenues(params, function(error, venues) {
 			if (!error) {
 				//fill div with results
 				venues.response.groups[0].items.forEach(function(place) {
-					if (place.venue.location.distance == undefined || place.venue.categories[0].name == undefined || place.venue.price == undefined || place.venue.photos.groups[0] == undefined || place.venue.location.city == undefined || place.venue.location.address == undefined) {
+					if (place.venue.location.distance === undefined || place.venue.categories[0].name === undefined || place.venue.price === undefined || place.venue.photos.groups[0] === undefined || place.venue.location.city === undefined || place.venue.location.address === undefined) {
 						return;
 					}
-					var name = place.venue.name;
-					var photo = place.venue.photos.groups[0].items[0].prefix + place.venue.photos.groups[0].items[0].width + "x" + place.venue.photos.groups[0].items[0].height + place.venue.photos.groups[0].items[0].suffix;
-					var keyword = place.venue.categories[0].name;
-					var price = place.venue.price.message;
-
 					var hourStart = place.venue.name.toUpperCase().charCodeAt(0) - 67;
 					if (hourStart < 0) {
 						hourStart += 10;
@@ -86,28 +81,20 @@ export default class Suggest extends Component {
 					if (time >= hourEnd) {
 						return;
 					}
-
-					var address = place.venue.location.address + ", " + place.venue.location.city;
-					var distance = Math.round(0.000621371 * parseInt(place.venue.location.distance) * 10) / 10 + "Miles";
-					var site = place.venue.url;
-					var x = self.props.loc.coords.latitude;
-					var y = self.props.loc.coords.longitude;
-					var temp = self.props.temp;
-					var con = self.props.con;
-					var toPush = {
-						name: name,
-						photo: photo,
-						keyword: keyword,
-						price: price,
+					const toPush = {
+						name: place.venue.name,
+						photo: place.venue.photos.groups[0].items[0].prefix + place.venue.photos.groups[0].items[0].width + "x" + place.venue.photos.groups[0].items[0].height + place.venue.photos.groups[0].items[0].suffix,
+						keyword: place.venue.categories[0].name,
+						price: place.venue.price.message,
 						hourStart: hourStart,
 						hourEnd: hourEnd,
-						address: address,
-						distance: distance,
-						site: site,
-						x: x,
-						y: y,
-						temp: temp,
-						con: con
+						address: place.venue.location.address + ", " + place.venue.location.city,
+						distance: Math.round(0.000621371 * parseInt(place.venue.location.distance) * 10) / 10 + "Miles",
+						site: place.venue.url,
+						x: self.props.loc.coords.latitude,
+						y: self.props.loc.coords.longitude,
+						temp: self.props.temp,
+						con: self.props.con
 					};
 					items.push(toPush);
 				});
