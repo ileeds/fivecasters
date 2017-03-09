@@ -63,6 +63,8 @@ export default {
 				var img = document.getElementById('weatherPic');
 				if (con.includes("Partly Cloudy")){
 					img.src = "../../assets/icons/Partly-cloudy-01.jpg";
+				} else if (con.includes("Sun")){
+					img.src = "../../assets/icons/Sunny-01.jpg";
 				} else if (con.includes("Mostly Cloudy")){
 					img.src = "../../assets/icons/Mostly-cloudy-01.jpg";
 				} else if (con.includes("Scattered Clouds")){
@@ -152,6 +154,10 @@ export default {
 				} else {
 					window.open("https://www.google.co.uk/search?q=" + name);
 				}
+			},
+
+			scrollBack() {
+				
 			}
 
 	}
