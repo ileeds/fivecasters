@@ -60,7 +60,8 @@ export default class Suggest extends Component {
 			"query": type + inOut + " seating",
 			"venuePhotos": 1,
 			"section": "food",
-			"radius": 1609.344
+			"radius": 1609.344,
+			"limit": 15
 		};
 		let itemsArray = [];
 		const self = this;
