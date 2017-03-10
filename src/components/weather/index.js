@@ -96,8 +96,8 @@ export default class Weather extends Component {
 				var hourDoc = document.getElementById('wrap');
 				hourDoc.appendChild(hours[0]);
 				//form array of times from now through 24 hours
-				const n = d.getHours()+1;
-				const j = n+23;
+				let n = d.getHours()+1;
+				let j = n+23;
 				let times = [];
 				for (let i=n; i<j; i++){
 					if (i>23){
