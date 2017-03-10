@@ -97,7 +97,7 @@ export default class Suggest extends Component {
 						hourStart: hourSt,
 						hourEnd: hourE,
 						address: place.venue.location.address + ", " + place.venue.location.city,
-						distance: Math.round(0.000621371 * parseInt(place.venue.location.distance, 10) * 10) / 10 + "Miles",
+						distance: Math.round(0.000621371 * parseInt(place.venue.location.distance, 10) * 10) / 10 + " Miles",
 						site: place.venue.url,
 						x: self.props.loc.coords.latitude,
 						y: self.props.loc.coords.longitude,

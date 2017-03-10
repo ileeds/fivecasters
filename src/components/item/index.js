@@ -21,7 +21,7 @@ export default class Item extends Component {
 					<div class={style.blueBox}>
 						<ul>
 
-							<li><p>{this.props.place.temp} {this.props.place.con.toLowerCase()}</p></li>
+							<li><p>{this.props.place.temp}&deg;C {this.props.place.con.toLowerCase()}</p></li>
 							<li><p class={style.timing}>{this.props.place.hourStart}:00 - {this.props.place.hourEnd}:00</p></li>
 						</ul>
 					</div>
