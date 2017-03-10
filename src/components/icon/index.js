@@ -1,4 +1,6 @@
-// import preact
+//weather icon component
+
+// import preact and style
 import { h, render, Component } from 'preact';
 import style from './style_iphone';
 

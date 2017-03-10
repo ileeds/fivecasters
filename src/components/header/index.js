@@ -1,4 +1,6 @@
-// import preact
+//header component with app name
+
+// import preact and style
 import { h, render, Component } from 'preact';
 import style from './style_iphone';
 
@@ -6,8 +8,9 @@ import style from './style_iphone';
 export default class Header extends Component {
 
 	render() {
+		//when clicked, scroll window to top
     return (
-			<div style="z-index: 5; background: white; position:fixed; height:50px; width:100%" onClick={() => window.scrollTo(0, 0)}>
+			<div class={style.container} onClick={() => window.scrollTo(0, 0)}>
 				<p class={style.settings}>Sun<b>Diner</b></p>
 			</div>
 		);

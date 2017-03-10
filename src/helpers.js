@@ -1,42 +1,49 @@
-// import preact
+//helper functions used by components
 import {h, render, Component} from 'preact';
 import style from './components/weather/style_iphone';
 import Suggest from './components/suggest/index';
 
 export default {
+	//executed when time on slider is clicked
 	timeClick(clicked, self, hours, now) {
 		var d = new Date();
 		var n = d.getHours();
 		var time = parseInt(clicked.currentTarget.innerHTML);
+		//if user clicked "now", time set to current time
 		if (isNaN(time)) {
 			time = n;
 		}
+		//remove blue underline from previously clicked time
 		var focus = document.getElementsByClassName(style.hour);
 		for (var i = 0; i < focus.length; i++) {
 			focus[i].style.borderBottom = "";
 		}
-
+		//black underline "now"
 		var unfocus = document.getElementById('start');
 		unfocus.style.borderBottom = "2.5pt solid  #000000";
-
+		//blue underline clicked time
 		clicked.currentTarget.style.borderBottom = "2.5pt solid  #4A90E2";
 		var hourDoc = document.getElementById('wrap');
+		//calcualte difference between clicked time and current time
 		var diff = parseInt(clicked.target.innerHTML) - n - 1;
 		if (diff < 0) {
 			diff += 24;
 		}
 		var forState;
 		var rain;
+		//if now was clicked
 		if (isNaN(diff)) {
 			hourDoc.replaceChild(now, hourDoc.childNodes[0]);
 			forState = now;
 			rain = forState.value;
-
+		//if another time was clicked
 		} else {
 			hourDoc.replaceChild(hours[diff], hourDoc.childNodes[0]);
 			forState = hours[diff];
+			//x is used to differentiate pop from amount of rain
 			rain = "x" + forState.value;
 		}
+		//pass values to Suggest component that will replace current Suggest component in dom
 		var replace = render( < Suggest temp = {
 					forState.childNodes[2].innerHTML.slice(0, -2)
 				}
@@ -55,17 +62,21 @@ export default {
 				/>);
 				var parent = document.getElementById("cont");
 				parent.replaceChild(replace, parent.childNodes[0]);
+				//call picReplace
 				this.picReplace(forState.querySelector("h3").innerHTML, time, self.state.loc);
 			},
 
-			//updates weather picture when new time is selected
+			//updates weather picture when time is selected
 			picReplace(con, time, loc) {
+				//suncalc used to find sunrise and sunset to render day or night icons
 				const SunCalc = require('suncalc');
 				var calc = SunCalc.getTimes(new Date(), loc.coords.latitude, loc.coords.longitude);
 				var night = false;
+				//night boolean to represent if day or night
 				if (time > calc.sunset.getHours() || time < calc.sunrise.getHours()) {
 					night = true;
 				}
+				//choose icon based on conditions at given time, defaults to haze
 				var img = document.getElementById('weatherPic');
 				if (con.includes("Partly Cloudy")){
 					if (night === true) {
@@ -164,6 +175,7 @@ export default {
 			//hourly data passed to callback function
 			hourly(parsed_json, callback) {
 				var toReturn = {};
+				//fill array of divs with hourly data, render innerHTML as well
 				for (var i = 0; i < 23; i++) {
 					var temp_c = Math.round(parsed_json['hourly_forecast'][i]['temp']['metric']);
 					var conditions = parsed_json['hourly_forecast'][i]['wx'];
@@ -182,6 +194,7 @@ export default {
 				window.open(name);
 			},
 
+			//search site associated with restaurant - if no site, google search restaurant name
 			site(url, name) {
 				if (url != null) {
 					window.open(url);
@@ -190,11 +203,13 @@ export default {
 				}
 			},
 
+			//when "now" clicked, scroll time slider back to start
 			scrollBack() {
 				var scroll = document.getElementById('wun');
 				scroll.scrollLeft = 0;
 			},
 
+			//calculate fake time values for restaurant hours
 			fakeTime(place, i, j) {
 				return ((place.venue.name.toUpperCase().charCodeAt(i) - 65) % 12) + j;
 			}

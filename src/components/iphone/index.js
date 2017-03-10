@@ -1,4 +1,4 @@
-// import preact
+// import preact and style
 import { h, render, Component } from 'preact';
 import style_iphone from '../weather/style_iphone';
 // import the Weather component
