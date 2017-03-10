@@ -1,11 +1,14 @@
 @import '../../style/helpers';
 
+//style for the weather when now is active
 .weatherNow {
   display: inline-block;
   justify-content: center;
   float: left;
   width: 200px;
   position: relative;
+
+  //style for the location in NOW
   h1 {
 	float: left;
 	font-size: 18pt;
@@ -17,6 +20,8 @@
 	font-weight: 900;
 	text-align: left;
   }
+
+  //style for the weather in NOW
   h2 {
 	position: relative;
 	float: left;
@@ -28,6 +33,8 @@
 	text-align: left;
 	margin: 0pt;
   }
+
+  //style for the weather description in NOW
   h3 {
 	position: relative;
 	float: left;
@@ -40,12 +47,15 @@
   }
 }
 
+//style for the weatehr when a later time is selected
 .weatherLater {
   display: inline-block;
   justify-content: center;
   float: left;
   width: 200px;
   position: relative;
+
+  //style for the location at a later time
   h1 {
 	float: left;
 	font-size: 18pt;
@@ -57,6 +67,8 @@
 	font-weight: 900;
 	text-align: left;
   }
+
+  //style for the temp at a later time
   h2 {
 	position: relative;
 	float: left;
@@ -67,6 +79,8 @@
 	text-align: left;
 	margin: 0pt;
   }
+
+  //style for the weather description at a later time
   h3 {
 	position: relative;
 	float: left;
@@ -77,6 +91,8 @@
 	text-align: left;
 	margin: 0pt;
   }
+
+  //style for the chance of rain at that time
   h4 {
 	display: block;
 	margin: 0px;
@@ -85,39 +101,21 @@
   }
 }
 
+//style for the wrapper container of the weather information (no icon)
 .weatherContainer {
   position: relative;
   right: 10px;
   overflow: hidden;
 }
 
-
-.now {
-  float: left;
-  position: relative;
-  left: 20px;
-  padding: 5pt 5pt 2px;
-  border-bottom: 2.5pt solid #4A90E2;
-  text-transform: uppercase;
-}
-
+//wrapper for the icon and weather info
 .mainWeatherContainer {
   background: #FFFFFF;
   height: 146pt;
 }
 
-.slide {
-  position: absolute;
-  top: 200px;
-}
 
-.image {
-  float: left;
-  width: 158.5pt;
-  padding: 31pt 35.5pt 33.5pt 46pt;
-  border-right: 1px solid #919191;
-}
-
+//style for the individual hours in the scrolling tabs
 .hour {
   width: 50px;
   height: 25px;
@@ -126,17 +124,7 @@
   margin-top: 4pt;
 }
 
-.scroll {
-  width: 325px;
-  height: 55px;
-  overflow-x: scroll;
-  white-space: nowrap;
-  position: relative;
-  float: left;
-  display: inline-block;
-  left: 35px;
-}
-
+//container for all infor inclusing weather slider and suggestons
 .container {
   background: #FFFFFF;
 	display: flex;

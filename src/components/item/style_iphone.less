@@ -1,5 +1,6 @@
 @import '../../style/helpers';
 
+//main style for the each box or card of a resteraunt
 .item {
   background: #FFFFFF;
   width: 293.5pt;
@@ -12,11 +13,13 @@
   box-shadow: 0pt 2.5pt 14pt #D1D1D1;
 }
 
+//setup a container to handle different size images
 .imgContainer {
   width: 100%;
   height: 131.5pt;
   overflow: hidden;
 
+  //make sure images covers the container div without being distorted
   img {
 	display: block;
 	width: 100%;
@@ -25,7 +28,7 @@
   }
 }
 
-
+//main style for the blue box
 .blueBox {
   background: #4A90E2;
   margin-left: 14pt;
@@ -37,25 +40,24 @@
   display: inline-block;
   float: left;
 
-
+  //unordered list containing the syle list items
   ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 
+	//make list items appear side by side
 	li {
 	  float: left;
 	  padding: 0pt 3pt;
 
-	  img {
-		height: 15pt;
-	  }
-
+	  //style of the paragraph content
 	  p {
 		margin: 0pt;
 	  }
 
+	  //adding a divider between the weather and the timing of restaurant
 	  .timing::before {
 		content: '|';
 		padding: 0pt 5pt 0pt 0pt;
@@ -65,6 +67,7 @@
   }
 }
 
+//style for the area of main text in the card
 .titleDiv {
   text-align: left;
   float: left;
@@ -75,6 +78,7 @@
   border-bottom: 0.5pt solid #CACACA;
   width: 354px;
 
+  //style of the name of the place
   h1 {
 	font-size: 18pt;
 	line-height: 25pt;
@@ -82,6 +86,7 @@
 	width: 270.9pt;
   }
 
+  //style for the keywords of the place
   p {
 	color: #919191;
 	margin: 0pt;
@@ -91,6 +96,7 @@
 
   }
 
+  //style for the pricing information
   .pricing {
 	color: #919191;
 	margin: 0pt;
@@ -101,6 +107,7 @@
   }
 }
 
+//style for the address area
 .address {
   text-align: left;
   margin: 0pt 0pt 0pt 14pt;
@@ -113,6 +120,7 @@
   width: 292px;
 }
 
+//style for the address icon
 .address:before {
   content: url("../../assets/icons/place.png");
   width: 12pt;
@@ -121,6 +129,7 @@
   margin: 0 5px 0 0;
 }
 
+//style for the distance from the location
 .distance {
   text-align: right;
   margin: 0pt 15pt 0pt 0pt;
